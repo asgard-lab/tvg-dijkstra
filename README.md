@@ -1,4 +1,4 @@
 tvg-dijkstra
 ============
 Cesar Marcondes
-Alvaro Shiokawa
+Álvaro Shiokawa Alvarez
