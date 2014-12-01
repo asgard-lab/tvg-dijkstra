@@ -1,0 +1,117 @@
+﻿=================
+Update 30-11-2014
+=================
+
+Professor, meu notebook quebrou e estou tendo que outro notebook, no qual instalar máquina Virtual fica lento demais.
+Nao dando para usalo.
+
+Segui aqueles links do Veins que você me mandou no email, mas meu note quebrou e não posso utilizar uma VM com OMNeT nele...
+
+*******************
+****** OMNeT ******
+*******************
+1) Então tive que instalar o OMNeT++ nele, mas sem sucesso, pois estava no Windows (O mesmo problema que obtia quando
+tentava instalar o OMNeT no windows, no meu notebook):
+
+	1.1)Quando se tenta importar o iNet assim que o OMNeT é iniciado pela primeira vez, a barra de progresso do mesmo, quando se
+		está compilando trava em 91% e não passa daí, esse problema ocorria no meu Note e neste note temporário.
+
+
+		
+2)Antes de dar problema no meu Notebook, fiz algumas descobertas ali no OMNeT, então vou reportá-las aqui...:
+
+	2.1) Adicionei as informações de debug e conseguiu colocar breakpoints/parar no meio do código.
+
+		Usando as informações adquiridas desta maneira coisas descobertas:
+
+			- Existe um método insert_vehicle, mas ele não presta para muita coisa;
+
+			- Toda vez que um carro é criado o método TraCIMobility::initialize é chamado;
+
+			- O ID único de cada carro é guardado em um campo do objeto chamado "external_id",
+				que é adota o formato flow 0.x, onde x é o id do nó (carro).
+				Neste initialize poderiamos adicionar o código para criar o grafo TVG
+
+
+
+
+3) Tentei entrar em contato com o Christoph Summer na lista de discussão do OMNeT a cerca de peculiaridades do código para ver se o mesmo
+poderia me dar uma luza, mas pelo visto ele quase sempre me aponta para aquele FAQ do Veins, o qual já executamos várias vezes, assim
+segue um log da minha troca de emails com o cara. Sim eu ja gerei a documentaçao como o cara sugere, mas pra mim nao ajudou muito:
+
+------------------------------------------------
+Álvaro Shiokawa Alvarez por  googlegroups.com 
+para omnetpp 
+
+Hello,
+
+I am masters degree student, and currently trying to work with Veins form y thesis.
+
+My thesis is on TVGs (Time Varying Graphs) with DTN. I would like
+to build a TVG integrating it with Veins.
+
+I forked the Veins repository from github and would like to know, if possible, where
+I should start to build this graph
+(Where are the nodes / edges created in she source).
+
+Also what are the classes related to the nodes in Veins, and to how they send messages to each other?
+
+
+Thanks in advance,
+Álvaro
+--------------------------------------------------
+Christoph Sommer sommer@ccs-labs.org por  googlegroups.com 
+para omnetpp 
+
+Dear Álvaro,
+
+How to start using Veins is a frequently asked question (FAQ).
+Maybe the list on http://veins.car2x.org/documentation/faq/ can be helpful to you.
+
+Best,
+
+  Christoph
+--------------------------------------------------
+Álvaro Shiokawa Alvarez por  googlegroups.com 
+para omnetpp 
+Dear Christoph,
+
+Thanks for the feedback. I cheked the Faq but I think I have a more specific question:
+
+On Veins, which classes and componentes represent each node /  car? And what part of
+the code, or, in which class, are the commands related to how
+each node / car send messages?
+
+Perhaps knowing the location of the components related to how the
+vehicles / nodes send messages / packets, might help me on what I ma trying to build.
+
+
+Thanks again for the attention.
+
+Alvaro
+--------------------------------------------------
+Christoph Sommer sommer@ccs-labs.org por  googlegroups.com 
+para omnetpp 
+
+I have to admit that the Veins documentation is, at this time, incomplete.
+You can, however, let OMNeT++ generate a complete API documentation using
+the corresponding menu item in the OMNeT++ IDE.
+
+This API documentation details all available classes and components and
+their use in the example simulation that ships with Veins.
+ 
+Best,
+
+  Christoph
+
+
+*********************
+****** The One ******
+*********************
+1) Considerando a inviabilidade de se usar o OMNeT no Windows que eu descrevi acima,
+achei melhor partir para o The One como você tinha sugerido, e fiz urma cópia local
+do repositório da Lourdes, caso precise usar o código dela como inspiração.
+
+2) Estou usando o The One aqui no Windows mesmo, para tanto instalei a jdk1.8_25 e a
+jre1.8_25... O note aqui estava com a jre 7 e o the one nao conseguia compilar, portanto
+descobri que para compilá-lo foi melhor ter a jdk e a jre exatamente na mesma versão.
