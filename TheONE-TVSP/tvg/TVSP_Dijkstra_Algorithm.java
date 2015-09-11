@@ -113,6 +113,15 @@ public class TVSP_Dijkstra_Algorithm {
 			 * may not reconnect in the future.
 			 * 
 			 * */
+			if (edge.getWeight() > distance.get(node)){
+				if (edge.getSource().equals(node) && !isSettled(edge.getDestination())) {
+					neighbors.add(edge.getDestination());
+				}else if (edge.getDestination().equals(node) && !isSettled(edge.getSource())) {
+					neighbors.add(edge.getSource());
+				}
+			}
+			
+			/*
 			if (edge.getMinimumIntervalStartTime() > distance.get(node)){
 				if (edge.getSource().equals(node) && !isSettled(edge.getDestination())) {
 					neighbors.add(edge.getDestination());
@@ -120,6 +129,7 @@ public class TVSP_Dijkstra_Algorithm {
 					neighbors.add(edge.getSource());
 				}
 			}
+			*/
 
 		}
 		return neighbors;

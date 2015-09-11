@@ -133,7 +133,6 @@ public class TVG {
             			matcher = pattern_close_bracket.matcher(current_line);
             			if (matcher.find()){ // Se n�o encontrar o close bracket "}".
             				matcher = pattern_edge.matcher(current_line);
-            				int indiceAresta = 0;
             				if (matcher.find()){
             					aux = matcher.group();
             					aux_array = aux.split("--");
@@ -141,17 +140,21 @@ public class TVG {
             					new_node2 = getNodeByLabel(aux_array[1],nodes);
             				}
             				
-            				new_edge = new Edge(new_node1.getLabel()+"--"+new_node2.getLabel(),new_node1,new_node2,0.0);
+            				//new_edge = new Edge(new_node1.getLabel()+"--"+new_node2.getLabel(),new_node1,new_node2,0.0);
             				matcher = pattern_intervals.matcher(current_line);
             				while (matcher.find()){
+            					new_edge = new Edge(new_node1.getLabel()+"--"+new_node2.getLabel(),new_node1,new_node2,0.0);
             					aux = matcher.group();
             					aux_array = aux.split(",");
             					new_start_time = Double.parseDouble(aux_array[0]);
             					new_end_time = Double.parseDouble(aux_array[1]);
-            					new_edge.addInterval(new_start_time,new_end_time);
+            					//new_edge.addInterval(new_start_time,new_end_time);
+                				new_edge.setWeight(new_start_time);
+            					//new_edge.setWeight(new_edge.getMinimumIntervalStartTime());
+                				edges.add(new_edge);
             				}
-            				new_edge.setWeight(new_edge.getMinimumIntervalStartTime());
-            				edges.add(new_edge);
+            				//new_edge.setWeight(new_edge.getMinimumIntervalStartTime());
+            				//edges.add(new_edge);
             			}     			          			
             		}
             	}

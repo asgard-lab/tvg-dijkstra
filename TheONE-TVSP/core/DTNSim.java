@@ -73,6 +73,13 @@ public class DTNSim {
 	        	System.out.println("File not found");
 	        }
 	       
+	        /* Print das arestas e seus pesos */
+	        /*
+	        for (Edge in : TVG.getInstance().getEdges()){
+	        	System.out.println(in.getLabel() + " " + in.getWeight());
+	        }
+	        */
+	        
 	    	/* Determinando o menor caminho a ser tomado pela mensagem baseado num nó origem e destino */
 			try{
 		        TVSP_Dijkstra_Algorithm dijkstra = new TVSP_Dijkstra_Algorithm(TVG.getInstance());
