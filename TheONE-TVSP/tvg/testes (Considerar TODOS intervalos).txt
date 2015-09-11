@@ -2,7 +2,7 @@
 
 -Testes feitos para a simulação de até 10000 segundos.
 
-- Dei um jeito de considerar todos intervalos? Como, separo eles em arestas separadas (Seria como se
+- Dei um jeito de considerar todos intervalos. Como? Simples, divido eles em arestas separadas (Seria como se
 o grafo tivesse arestas paralelas, o que é uma interpretação totalmente aceitável), e coloco o limite inferior de cada
 intervalo como o peso da aresta. Considerando que a velocidade de transferêncai das interfaces de rede é muito grande,
 é praticamente garantido que se um par de nós conectou, SEMPRE a única mensagem será transferida sem queda de conexão.
@@ -10,7 +10,18 @@ intervalo como o peso da aresta. Considerando que a velocidade de transferêncai 
 Origin		Destination		Expected_SP					Resulting_SP				Test_Result
 -----------------------------------------------------------------------------------------------
 n79			n7				n79 n43 n7					n79 n43 n7					OK
-n79			n25				n79 n43 n25
+n79			n19				n79 n22 n19					n79 n22 n19					OK
+n79			n22				n79 n22						n79 n22						OK
+n79			n25				n79 n43 n25					n79 n43 n25					OK
+n79			n30				NOT FOUND					NOT FOUND					OK
+n79			n37				n79 n22 n37					n79 n22 n37					OK
 n79			n40				n79	n43	n40					n79	n43	n40					OK
+n79			n43				n79 n43						n79 n43						OK
 n79			n83				n79 n22 n19 n83				n79 n22 n19 n83				OK
-n79			n117			n79 n22 n19 n83 n106 n117	n79 n22 n19 n83 n106 n117	OK 
+n79			n89				n79 n22 n89					n79 n22 n89					OK
+n79			n91				n79 n43 n7 n91				n79 n43 n7 n91				OK
+n79			n95				NOT FOUND					NOT FOUND					OK
+n79			n106			n79 n22 n19 n83 n106		n79 n22 n19 n83 n106		OK
+n79			n113			NOT FOUND					NOT FOUND					OK				
+n79			n117			n79 n22 n19 n83 n106 n117	n79 n22 n19 n83 n106 n117	OK
+n79			n119			NOT FOUND					NOT FOUND					OK 
