@@ -92,7 +92,7 @@ public class DTNSim {
 				TVG.getInstance().getCurrentShortestPath().removeFirst();
 				System.out.print("\n");
 			} catch(NullPointerException f){
-				System.out.println("\nTVSP COULD NOT find a shortest path! " + origin_node + " COULD NOT reach " + destination_node + "!");
+				System.out.println("\nTVSP COULDN'T find a shortest path between " + origin_node + " and " + destination_node + "!");
 			}
 		}
 		
