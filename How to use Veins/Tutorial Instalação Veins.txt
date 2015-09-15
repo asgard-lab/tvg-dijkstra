@@ -1,0 +1,180 @@
+*************************************************
+* Tutorial instalação do Veins  no Ubuntu / Lubuntu *
+*************************************************
+Para baixar, visitar os sites:
+SUMO -> http://sumo-sim.org/
+
+considere no seu linux ubuntu installar as guest additions para
+deixar full screen a VM, mas para que funcione tem que ter
+o make instalado. Se instalar as dependencias citadas abaixo
+conseguirá fazer funcionar oguest additions.
+
+-----------------------------------------------------
+# 1. Downloads a serem feitos #
+-----------------------------------------------------
+0) Mude o password de root (sudo passwd)
+0.a) Instalar python pip (sudo apt-get install python-pip)
+0.b) Instalar pydot (pip install pydot2)
+1) Instalar o aptitude (sudo apt-get install aptitude)
+1.a) Instalar o Lubuntu mais recente
+1.b) Baixar Veins 3.0
+1.c) Baixar OMNET++ mais recente
+1.d) Baixar o SUMO mais recente e estável que seja compatível com o Veins
+     Desde 07/10/2014 chequei que a versão mais estável e recente do
+     Veins é a 3.0 e requer sumo 0.21
+
+
+------------------------------------------------------
+# 2. Dependências necessárias #
+------------------------------------------------------
+Pode tentar instalá-las com aptitude se não der com apt-get
+
+instale o aptitude:
+$ sudo apt-get install aptitude
+
+instale o alacarte (permite modificar os menus e atalhos de forma fácil):
+$ sudo apt-get install alacarte
+
+##Dependências relativas ao OMNeT++
+sudo apt-get install build-essential gcc g++ bison flex perl tcl-dev tk-dev blt libxml2-dev 
+zlib1g-dev default-jre doxygen graphviz libwebkitgtk-1.0-0 openmpi-bin libopenmpi-dev libpcap-dev
+
+#Dependências relativas ao SUMO (Possivelmente ja são instaladas junto com o SUMO, quando tentamos
+instalá-lo por aptitude do repositório adicionado no item 1)
+$ sudo apt-get install autoconf automake libtool libproj0 libgdal1-dev libfox-1.6-dev libgdal-dev 
+libxerces-c-dev
+
+#Se preferir instalar as dependências do SUMO e do OMNeT++ de uma só vez faça:
+sudo apt-get install build-essential gcc g++ bison flex perl tcl-dev tk-dev blt libxml2-dev 
+zlib1g-dev default-jre doxygen graphviz libwebkitgtk-1.0-0 openmpi-bin libopenmpi-dev libpcap-dev 
+autoconf automake libtool libproj0 libgdal1-dev libfox-1.6-dev libgdal-dev libxerces-c-dev
+
+OBS: se nao der por apt-get tente por aptitude
+
+
+-----------------------------------
+# 3 . Instalar SUMO #
+-----------------------------------
+3.a) Adicionar o repositório do SUMO:
+
+	$ sudo add-apt-repository ppa:sumo/stable
+	$ sudo apt-get update
+
+
+3.b) Instalar o SUMO por meio do repositório:
+
+    OBS: Até o momento não colocaram a versão mais recente do sumo, que é a 0.21, no repositório.
+
+	$ sudo aptitude install sumo sumo-tools sumo-doc
+
+	OBS:  Vai aparecer uma mensagem de erro assim, sempre que ele pedir Y / N / q, escolha N, até
+	      que sugira uma versao do sumo la existente no repositorio (atualmente a 0.19) junto
+	      com várias dependências:
+
+		The following packages have unmet dependencies:
+		 sumo : Depends: libgdal1 (>= 1.8.0) which is a virtual package.
+		The following actions will resolve these dependencies:
+
+    		 Keep the following packages at their current version:
+		1)     sumo sumo-doc [Not Installed]
+		Accept this solution? [Y/n/q/?] n
+
+		The following actions will resolve these dependencies:
+		Install the following packages:
+		1)     sumo [0.19.0+dfsg-2 (now, trusty)]
+		Accept this solution? [Y/n/q/?] Y
+		The following NEW packages will be installed:
+ 		sumo
+		0 packages upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+		Need to get 0 B/3.311 kB of archives. After unpacking 17,0 MB will be used.
+		Do you want to continue? [Y/n/?] Y
+
+
+3.c) Instalar o SUMO manualmente (Build from source):
+
+	Baixe a versão mais recente do SUMO no link http://sumo-sim.org/wiki/Downloads
+
+	Instruções para instalação manual do SUMO wm http://sumo.dlr.de/wiki/Installing/Linux_Build
+
+	OBS: Supondo que as dependências necessárias foram corretamente instaladas...
+
+	1) Na linha de comando. entre no diretório onde você descompactou o SUMO, por exemplo
+	   ~/home/sumo-0.21.0, e dentro do mesmo digite:
+
+		$ ./configure && make
+
+	2) Para se utilizar algumas das ferramentas do SUMO, é preciso que esteja setada a variável de
+	   ambiente $SUMO_HOME, para tanto:
+	   
+	   2.a) Suponhamos que o diretório onde você colocou descompactou o SUMO seja
+	   		~/home/sumo-0.21.0, sendo assim você deve configurar a variável de ambiente
+	   		SUMO_HOME para apontar para este diretório.
+	   		OBS: Aponte a variável para o diretório onde você descompactou o SUMO!
+
+		2.b) Para isso edit o arquivo ~/.bashrc e adicione
+			 ao final dele a seguinte linha:
+             
+             export SUMO_HOME=$HOME/Dev/sumo-0.21.0
+
+
+----------------------------------------
+# 4 . Instalar OMNET++ #
+----------------------------------------
+4.a) Setar variáveis de ambiente:
+	Entre no diretório onde descompactou o omnet, supondo que fosse na Home, teríamos:
+
+	$ cd omnetpp-4.6
+
+
+	No diretório digite:
+
+	$.  setenv
+
+
+	Pode-se colocar a seguinte linha no final do arquivo .bashrc, para que sempre
+	aponte para o local onde esta o omnet:
+
+	$gedit  ~/.bashrc
+
+	export PATH=$PATH:$HOME/omnetpp-4.6/bin
+	export TCL_LIBRARY=/usr/share/tcltk/tcl8.6
+
+	salve as alterações e feche e abra o terminal novamente.
+
+	numa nova janela de terminal, no diretorio do omnetpp, novamente digite:
+	$. setenv
+
+	mas agora digite tbm:
+	$./configure
+
+    acabado, depois digite:
+    $make
+
+    depois:
+    $ make install-menu-item
+    $ make install-desktop-icon
+
+    para acessar o omnet no terminal digite:
+    $ omnetpp
+            
+4.b) Instalar o GDB:
+	O GDB que vem no OMNET aparentemente está com problemas, então recomenda-se
+	instalar o GDB separado e depois apontar para o diretório do mesmo pelo OMNET:
+	
+	Se o GDB não estiver instalado, abra uma janela de terminal e digite:
+	$apt-get install gdb
+		
+	Isto vai instalar o gdb, que aparecerá na pasta /usr/lib/
+	
+	No OMNeT++, com a pasta de seu projeto selecionada, digamos, a do veins, procure a parte
+	
+	
+----------------------------------------
+# 5 . Configurar VEINS
+----------------------------------------
+5.a) Para não ter de entrar sempre no diretório do VEINS para acessar o sumo-launchd.py, pode-se
+	 adicionar o diretório onde foi descompactado o Veins para o $PATH. Para tanto, pode-se editar
+	 o arquivo .bashrc e ao final do mesmo adicionar a seguinte linha (Supondo que você
+	 descompactou o Veins em ~/home/Dev/veins-veins-3.0):
+     
+     export PATH=$PATH:$HOME/Dev/veins-veins-3.0

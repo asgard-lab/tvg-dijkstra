@@ -1,0 +1,248 @@
+************************************************
+------Desmistificando o VEINS - Parte 2------
+************************************************
+
+OMNet++ (vulgo omnetpp) é o simulador que, projetado para modelagem e simulação de redes "convencionais" (em linhas gerais, redes bem conhecidas, como a internet), nos permitirá cuidar dos detalhes de simulação no cenário urbano.
+
+SUMO é o simulador de mobilidade urbana, que nos permitirá "mexer os nodos" da nossa rede, ou seja, simular a movimentação dos nossos veículos.
+
+VEINS é o framework que liga o útil ao...ao outro elemento útil porque de agradável não tem muita coisa, e nos permite fazer a simulação completa de trânsito.
+
+Daqui para frente vou explicar passo-a-passo como efetuar a simulação (a partir da VM ou de um Linux configurado com o OMNet++ ou até mesmo um Windows com o VEINS+MinGW (por sua conta e risco)).
+
+------Como iniciar uma simulação?------
+
+Vamos tentar iniciar a simulação que vem como padrão no pacote do VEINS. Para isso, abra uma janela de terminal (atalho é Ctrl+Alt+T) e digite omnetpp + Enter.
+
+Aguarde alguns instantes e o OMNet++ abrirá. No Project Explorer, busque pela pasta mixim e dentro dela a pasta examples. Lá, você verá a pasta veins. Se você estiver utilizando a VM provavelmente não haverá problemas em executar a simulação diretamente, mas vamos por partes. Depois de localizar a pasta veins dentro do Project Explorer, volte ao terminal pois será necessário iniciar o SUMO. Para isso, digite o seguinte comando:
+
+/home/veinsvm/Apps/veins-veins-2.2/sumo-launchd.py -vv -c sumo-gui
+
+O que estamos fazendo aqui? Estamos iniciando o SUMO através de um script em Python, pertencente ao pacote do VEINS, que configura o SUMO para escutar em uma porta da rede localhost (porta 9999 - provavelmente padrão à execução do VEINS). Vocês irão reparar que deste post para o anterior, a única alteração é que passamos de sumo para sumo-gui no comando acima. Por que? Porque não tem graça olhar a tela preta do terminal soltando os logs. É mais legal ver o mapinha e os carrinhos se movimentando. Depois de iniciar o SUMO, não fechem o terminal, isso encerraria a execução do mesmo e a simulação vai pelos ares.
+
+Vá até a pasta mixim no OMNet++ e construa o projeto (Build all). Depois disso, vá até a pasta veins e execute-a clicando com o botão direito sobre a pasta e selecione Run as >> OMNet++ Simulation. Uma lista com os executáveis aparecerá, então selecione o executável da pasta veins e pronto.
+O OMNet++ irá preparar a simulação para ser iniciada e abrirá duas janelas + a janela do SUMO que foi aberta na sua inicialização passará a exibir o mapa de Erlangen.
+
+Para iniciar a simulação, busque o botão Run (um Play vermelho) em qualquer uma das janelas de cenário do OMNet++. Caso o SUMO não acompanhe a simulação, inicie ele também pelo botão Run de sua interface.
+
+Se as coisas começarem a se mexer e nenhum erro aparecer, parabéns, você executou sua primeira simulação.
+
+Como montar minha simulação?
+
+Vou explicar resumidamente/novamente os arquivos que importam no momento e como gerá-los (comandos que devem ser digitados para gerar os XMLs).
+
+*.net.xml - é o arquivo que, derivado do OSM (OpenStreetMap), descreve em forma de XML as vias por onde os nodos irão trafegar (ruas, travessas, rodovias)
+
+*.rou.xml - é o arquivo que descreverá possíveis rotas a serem seguidas pelos nodos, e pode ser gerado "dinamicamente".
+
+*.poly.xml - é o arquivo que possui as localizações dos prédios/construções no mapa, que podem ser considerados obstáculos.
+
+omnetpp.ini (descoberta) - pode ser modificado e possui várias das tags que eu não sabia onde estavam tratando-se de quantidade de carros e outros detalhes! Agora tudo faz sentido uahuah =D.
+
+Vamos tentar gerar um mapa e alterar os arquivos da simulação padrão e vermos no que dá?
+
+Inicialmente é necessário exportar um arquivo OSM do site OpenStreetMap (http://openstreetmap.org). Vocês verão que é algo extremamente parecido com o Google Maps. Entrem no site, escolham uma parte do mundo que seja bem comportada (uma área pequena de preferência, inicialmente) e cliquem em Export. No lado esquerdo uma pequena aba será exibida, onde pode-se especificar uma área do mapa manualmente. Estipulem a área e mandem exportar. Após alguns segundos será possível fazer o download do arquivo map.osm. Esse é o arquivo que contém todas as informações do mapa. Pense no arquivo OSM como uma grande pilha de mapas sobrepostos e guardados dentro de um mesmo arquivo. Para que seja possível efetuar a visualização, é necessário um software especializado, e para isso, existe o OpenJUMP (http://www.openjump.org/). Tentem baixar/instalar e visualizar o mapa e suas layers. Não é obrigatório mas é uma etapa interessante para entender como funciona o formato.
+
+Após baixar o arquivo map.osm, vamos tentar convertê-lo e gerar os XMLs efetivamente. Para facilitar o processo, vá até a pasta Documentos do usuário e cria a pasta MyMap. O navegador provavelmente salvará o mapa na pasta Downloads do usuário, portanto transfira o map.osm para a pasta MyMap.
+
+Abra um terminal e navegue até a pasta MyMap (lembrando que nesta notação, o cifrão é o prompt do terminal e não deve ser digitado):
+
+$ cd ~/Documents/MyMap
+
+Verifique se o map.osm está na pasta com o comando:
+
+$ ls
+
+A saída dará as informações sobre o arquivo.
+
+Vamos gerar primeiramente o arquivo *.net.xml. Faremos alguns ajustes para padronizar a nossa geração de mapas posteriormente.
+
+O arquivo *.net.xml é um ROAD NETWORK FILE (nome auto-explicativo), e corresponde a conversão OMS -> XML. Usaremos o comando netconvert (parte do pacote SUMO).
+
+$ netconvert --osm map.osm
+
+Isso gerará o arquivo net.net.xml
+
+Agora, será necessário gerar as rotas do arquivo *.rou.xml. Para isso vamos utilizar um script em Python chamado randomTrips.py, que se encontra no pacote SUMO. Como o SUMO foi instalado diretamente do repositório do Ubuntu, precisaremos baixar uma versão do SUMO que possua esse script. Para isso, execute os seguintes comandos:
+
+$ cd ~/Apps
+$ wget http://prdownloads.sourceforge.net/sumo/sumo-src-0.17.1.tar.gz?download
+$ tar -zxvf sumo-src-0.17.1.tar.gz
+$ cd sumo-0.17.1/tools/trip
+$ ls
+
+Verificando o conteúdo deste diretório, encontramos o randomTrips.py.
+
+Vamos executá-lo da seguinte maneira:
+
+$ ./randomTrips.py -n ~/Documents/MyMap/net.net.xml -l -e 600 -o ~/Documents/MyMap/trips.trips.xml
+
+Aguarde a geração das rotas randômicas e após isso, geraremos o arquivo de rotas, agora executando o comando duarouter. Vamos voltar ao diretório MyMap e executá-lo.
+
+$ cd ~/Documents/MyMap
+$ duarouter -n net.net.xml -t trips.trips.xml -o routes.rou.xml --ignore-errors
+
+E assim geramos os principais arquivos estruturais para a simulação. Ainda não explorei o suficiente o omnetpp.ini, mas o próximo tutorial o contemplará também.
+
+Podemos também tentar gerar o arquivo *.poly.xml no caso, utilizando o comando polyconvert da seguinte maneira:
+
+$ polyconvert --net-file net.net.xml --osm-files map.osm -o map.poly.xml
+
+E pronto! Todos os arquivos foram gerados.
+
+IMPORTANTE: Vamos trocar os nomes para ficar mais fácil de saber quem gerou qual mapa.
+
+net.net.xml -> seu_primeiro_nome.net.xml
+route.rou.xml -> seu_primeiro_nome.rou.xml
+map.poly.xml -> seu_primeiro_nome.poly.xml
+
+Agora é copiar os arquivos xml gerados para a pasta do veins (~/Apps/veins-veins-2.2/examples/veins) e importá-los no OMNet++ (o jeito mais prático é selecionar os arquivos copiados já na pasta do veins e puxá-lo para dentro do OMNet++ dentro da pasta veins).
+Para que ele passe a ler destes arquivos, é necessário editar dois arquivos: *.launchd.xml e *.sumo.cfg. Troque os nomes dos arquivos erlangen.*.xml para os arquivos que você gerou (seu_primeiro_nome.*.xml).
+Construa novamente usando o Build All e execute a simulação como foi explicado no começo deste tutorial. Se der tudo certo (suspeite), mas provavelmente você terá uma simulação bem interessante funcionando =]. Alguns pequenos ajustes deverão ser feitos provavelmente, mas isso veremos com o passar do tempo. A simulação que for mais estável poderá ser utilizada.
+
+Espero que isso ajude a termos noção do que trabalhamos hoje a tarde.
+
+Nos próximos tutoriais exploraremos as simulações mais a fundo, incluíndo o arquivo omnetpp.ini e os logs de simulação (vamos descobrir onde eles vão parar e o que podemos tirar deles). Após retirarmos as informações úteis será hora de criar o parser e descrever os grafos (etapa que será executada, espera-se, em Python).
+
+
+
+---Colocações do Álvaro---
+
+Vou fazer algumas colocações aqui,  para complementar o que o Antonio falou no post original, e para tentar auxiliar quem mais tenha encalhado ao tentar fazer a sua simulação:
+
+Muitos devem ter percebido que o Veins ali precisa do arquivo erlangen.launchd.xml e nomeado exatamente desta maneira, senão não executa a simulação.
+
+Ou seja, não sei como fazer o Veins reconhecer o arquivo em questão se estivesse nomeado como seu_nome.launchd.xml, por hora tem que ser como erlangen.launchd.xml mesmo.
+
+Alguem mais notou que o erlangen.net.xml que vem com o Veins tem uns campos a mais que o .net.xml que geramos?
+
+Para efeito de exemplo, estamos considerando que todos arquivos que geramos para a simulação foram renomeados para seu_nome (Por exemplo: mymap.osm fica seu_nome.osm  ,  net.net.xml fica seu_nome.net.xml, e assim por diante)
+
+O que há no "erlangen.launchd.xml" a ser alterado para a nossa simulação?
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+    <copy file = "erlangen.net.xml" />
+    <copy file = "erlangen.rou.xml" />
+    <copy file = "erlangen.poly.xml" />
+    <copy file = "erlangen.sumo.cfg" type="config" />
+</launch>
+
+Devemos alterar todos os "erlangen" nas partes copy file para "seu_nome", ficando algo como...
+
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+    <copy file = "seu_nome.net.xml" />
+    <copy file = "seu_nome.rou.xml" />
+    <copy file = "seu_nome.poly.xml" />
+    <copy file = "seu_nome.sumo.cfg" type="config" />
+</launch>
+
+
+
+Como deve ficar o "seu_nome.net.xml"?
+Na parte "configuration", deve-se alterar somente os campos "input", "output":
+
+Se antes os campos "input" e "output" estavam assim:
+<input>
+    <osm-files value="qualquer_coisa.osm" />
+</input>
+
+<output>
+   <output-file value="qualquer_coisa.net.xml" />
+</output>
+
+Devem ficar assim...:
+<input>
+    <osm-files value="seu_nome.osm" />
+</input>
+
+<output>
+   <output-file value="seu_nome.net.xml" />
+</output>
+
+
+Como deve ficar o "seu_nome.rou.xml"?
+Na parte "configuration xmlns", deve-se alterar somente as campos "input", "output":
+
+Se antes os campos "input" e "output" estavam assim:
+<input>
+    <net-file value="qualquer_coisa.net.xml" />
+    <trip-files value="qualquer_coisa.trips.xml" />
+</input>
+
+<output>
+   <output-file value="qualquer_coisa.rou.xml" />
+</output>
+
+Ficariam assim...:
+<input>
+    <net-file value="seu_nome.net.xml" />
+    <trip-files value="seu_nome.trips.xml" />
+</input>
+
+<output>
+   <output-file value="seu_nome.rou.xml" />
+</output>
+
+
+Como deve ficar o "seu_nome.poly.xml"?
+Na parte "configuration xmlns", deve-se alterar somente as campos "input", "output":
+
+Se antes os campos "input" e "output" estavam assim:
+<input>
+    <net-file value="qualquer_coisa.net.xml" />
+    <osm-files value="qualquer_coisa.osm" />
+</input>
+
+<output>
+   <output-file value="qualquer_coisa.poly.xml" />
+</output>
+
+Ficariam assim...:
+<input>
+    <net-file value="seu_nome.net.xml" />
+    <osm-files value="seu_nome.osm" />
+</input>
+
+<output>
+   <output-file value="seu_nome.poly.xml" />
+</output>
+
+
+Como deve ficar o "seu_nome.sumo.cfg"?
+Se não executei os passos descritos pelo Antonio de forma errada, eu vejo que esse arquivo .sumo.cfg não é gerado, no caso você teria duas alternativas:
+
+1) Faz uma cópia do arquivo "erlangen.sumo.cfg"  chamada "seu_nome.sumo.cfg"
+2) Faz o arquivo "erlangen.launchd.xml" continuar apontando para o arquivo "erlangen.sumo.cfg" (O último campo copy file) ao invés de "seu_nome.sumo.cfg"
+
+De um jeito ou outro, o que deve ser alterado no arquivo .sumo.cfg (Seja ele o original ou a cópia com outro nome) é o campo "input, na parte "configuration xmlns".
+
+Se antes o campo "input" estava assim:
+<input>
+    <net-file value="qualquer_coisa.net.xml" />
+    <route-files value="qualquer_coisa.rou.xml" />
+    <additional-files value="qualquer_coisa.poly.xml" />
+</input>
+
+Ficaria assim:
+<input>
+    <net-file value="seu_nome.net.xml" />
+    <route-files value="seu_nome.rou.xml" />
+    <additional-files value="seu_nome.poly.xml" />
+</input>
+
+---Resposta do Antonio ao comentário do Álvaro---
+
+Obrigado pelos comentários, Álvaro.
+
+Somente fazendo algumas correções, muitos desses valores não precisam ser alterados. Os únicos arquivos que realmente precisam ser alterados são os arquivos de configuração. Nenhum XML gerado através do tutorial precisa ser alterado pois aqueles campos são gerados dinamicamente pelas ferramentas do pacote SUMO e não são considerados durante a simulação.
+
+A necessidade se mantém SOMENTE nos arquivos LAUNCHD e no SUMO.CFG e o mais importante e ainda não citado, o OMNETPP.INI, que é o arquivo "mestre" das simulações.
+
+Irei publicar o último capítulo do tutorial em breve e assim encerramos a parte comum aos grupos. A geração dos grafos fica por conta de cada um dos grupos.
+
+Muito grato à todos pela atenção,
+
+Antonio

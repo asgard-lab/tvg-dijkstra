@@ -1,0 +1,34 @@
+Metas decididas em reunião:
+
+- Normalizar a utilização da VM (deixe tudo funcionando)
+
+- Executar algumas simulações de exemplo para familiarização
+
+- Entender a API da biblioteca NetworkX (para grafos em Python)
+     - Procure gerar um grafo e experimente atribuir pesos a arestas, mudar label de vértices, plotar
+
+- Separar as saídas dos logs do VEINS e analisar a disposição dos dados para posteriores experimentos
+
+- Escolher os mapas e protocolos para as simulações finais
+
+- Organizar os dados gerados pelo VEINS para descrição do TVG
+
+- Automatizar a geração do TVG a partir dos arquivos de trace do VEINS
+
+- Confecção do relatório
+
+
+
+Após conversa com o Prof. Marcondes, esclarecemos o escopo do trabalho:
+
+Geração sintética OU baseada em traces reais de uma simulação de mobilidade.
+Descrição objetiva do TVG que descreve os contatos via rede wireless ocorridos durante o tempo de simulação a partir dos logs de simulação.
+
+Avaliação: Relatório + Apresentação no último dia (não sabemos se haverá tempo)
+
+Para o escopo da disciplina, é somente até aqui.
+
+
+Para avançar para o artigo:
+
+Análise estátistica de simulações -> Busca por modelos de mobilidade / Análise de comportamento da rede.

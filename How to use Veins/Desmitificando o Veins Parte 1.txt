@@ -1,0 +1,59 @@
+**********************************************
+------Desmistificando o VEINS Parte 1------
+**********************************************
+
+VEINS é um simulador de Redes Veiculares que associa basicamente, dois softwares para simulação.
+
+OMNet++ - um simulador de redes de diversos tipos (mais especificamente aplicado à redes LAN/WiFi que seguem o padrão 802.11)
+SUMO - Simulation of Urban Mobility - como o próprio nome diz, um simulador de mobilidade urbana - simula comportamentos de mobilidade de nodos sobre mapas.
+
+VEINS é responsável por ser um "wrapper" entre OMNet++ e SUMO, permitindo associar o poderio de simulação do OMNet++ com os modelos de mobilidade agregados ao SUMO
+
+VEINS, pelo que parece, é uma derivação de um outro framework chamado MiXiM (mixim.sourceforge.net), que trabalha com redes wireless e mobile.
+
+------O que importa no momento para o trabalho?------
+
+Basicamente e primeiramente, a nossa tarefa será efetuar simulações, alterando alguns parâmetros nos arquivos de configuração do VEINS.
+
+Lembrando que está tudo instalado em nossa VM.
+
+Para iniciar o OMNet++ é só abrir um terminal/linha de comando na VM (aos não familiarizados com o ambiente Linux, é só CTRL+ALT+T) e digitar omnetpp seguido de ENTER
+
+O OMNet++, como várias outras "IDEs" atuais, é baseado no código do Eclipse (especificamente o Eclipse CPP - como havia comentado, ao que parece o framework foi feito em C++, então...), portanto quem já programou no Eclipse vai se sentir bem confortável.
+
+LImpando um pouco o cenário (fechando o que não é necessário) teremos uma barra lateral do Project Explorer. Lá, procure pela pasta mixim, dentro dela vá em examples e lá você encontrará a pasta veins, que é onde primeiramente vamos trabalhar.
+
+Dentro da pasta veins há alguns arquivos (os nossos prezados arquivos de configuração) que comandam os parâmetros das simulações.
+
+Como default esse exemplo vem configurado para o mapa de Erlangen (por sinal, uma cidade muito bonita na Alemanha // en.wikipedia.org/wiki/Erlangen‎).
+
+Vamos explorar um pouco desses arquivos:
+
+config.xml -  em uma análise preliminar, esse arquivo descreve a interface de comunicação utilizada na simulação para comunicação entre unidades móveis
+Descrições como fator de perda, frequência da portadora, protocolo usado (nesse exemplo, o que é usado é o padrão 802.11p)
+
+Esses * querem dizer que o nome pode até variar, mas a terminação sempre será a mesma. No exemplo o * é erlangen
+
+*.net.xml - pelo que consegui entender, este arquivo consiste numa conversão/interpretação feita em XML de um arquivo OSM (OpenStreetMap).
+Ele descreve todos os caminhos do mapa sobre onde os elementos móveis podem se locomover, bem como possíveis restrições presentes no caminho (velocidade do veículo permitida, quais ruas se conectam realmente (não só se sobrepõem no mapa).
+Este arquivo em especial pode ser interpretado como um grafo, pois é uma representação estruturada de um mapa.
+
+*.poly.xml - descreve as formas que serão desenhadas no mapa, principalmente edifícios (que poderão ser obstáculos à comunicação)
+
+*.rou.xml - gera os elementos móveis e suas respectivas rotas sobre o mapa (pesquisei um pouco, e este pode ser gerado "aleatoriamente" com alguns comandos e dando como entrada outros arquivos de configuração)
+
+*.sumo.cfg - é o arquivo de entrada para o SUMO, onde colocamos os arquivos que serão dados como entrada e parâmetros como o tempo de simulação.
+
+Para a simulação funcionar, deve ser executado um script que inicializará o SUMO. Para isso abra um terminal e digite:
+
+/home/veinsvm/Apps/veins-veins-2.2/sumo-launchd.py -vv -c sumo-gui
+
+Isso vai "ligar" o SUMO e deixá-lo em standby.
+
+Se não me engano, já deixei compilado o exemplo, porém, é válido dar um Build Project sobre a pasta mixim.
+
+Depois vá até a pasta veins e Run as OMNet SImulation. Escolha o executável do veins e execute.
+
+Uma janela vai abrir  e vocês poderão dar RUN na simulação.
+
+Uma quantidade massiva de dados é gerada e ainda não consegui entender direito tudo, mas vou postando os avanços.

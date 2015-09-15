@@ -1,0 +1,15 @@
+E aí pessoal,
+
+Estava lendo um pouco e tentando preparar o Veins para uso. Decidi fazer uma VM de um Ubuntu + os softwares necessários. Se alguém estiver interessado, na quarta passo os arquivos da VM.
+
+Juntei mais alguns artigos sobre o assunto e alguns tutoriais bem simples - também passo um link para download/view depois.
+
+Com relação aos TVGs, há pouco material existente, porém alguns conceitos podem ser explorados através da teoria de grafos evolucionários (http://en.wikipedia.org/wiki/Evolutionary_graph_theory).
+
+Os simuladores são escritos em C/C++ pelo que entendi, então se precisarmos efetuar alguma alteração ou escrever códigos durante o trabalho, será nessa linguagem.
+
+Última coisa, a conta do Git que o Prof. Marcondes solicitou. Quem nunca teve contato com o Git tem um tutorial bem simples (http://readwrite.com/2013/09/30/understanding-github-a-journey-for-beginners-part-1) para começar a usar.
+
+Por enquanto é só.
+
+\o

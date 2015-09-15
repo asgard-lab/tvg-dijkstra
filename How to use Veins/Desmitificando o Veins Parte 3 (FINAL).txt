@@ -1,0 +1,43 @@
+************************************************
+------Desmistificando o VEINS - Parte 3------
+************************************************
+
+Olá a todos.
+
+Encerraremos o tutorial sobre VEINS neste post. Serei bem mais breve e direto desta vez. Se alguma duvida surgir, peço que enviem por e-mail.
+
+Admito que geraram o mapa através do OpenStreetMap e geraram os arquivos tal como explicado no passo anterior.
+
+Editaremos o omnetpp.ini - arquivo de configuração que contém praticamente todas as configurações sobre a simulação.
+
+Ao clicar duas vezes sobre o arquivo omnetpp.ini o aplicativo abrirá uma nova aba com o editor de arquivos ini padrão.
+
+Vá até a opção Event Log e ative a opção "Enable eventlog recording" para que toda a atividade ocorrida seja jogada para os logs.
+
+Agora clique com o botão direito sobre o arquivo omnetpp.ini, escolha Open With >> Text Editor.
+
+Retire os comentários das linhas tkenv-default-config e tkenv-default-run.
+
+Vá até a seção "11p specific parameters - NIC Settings" e insira abaixo da linha *.connectionManager.sendDirect = true a seguinte linha:
+
+*.connectionManager.debug = true
+
+Salve o arquivo omnetpp.ini (i.e. Ctrl+S) e prossiga com a execução da simulação.
+
+Desta vez, execute sua simulação no modo debug.
+
+Prepare-se pois os logs gerados por uma simulação podem beirar 13(treze) GB, como foi o caso da simulação que executei, talvez seja necessário aumentar o espaço de disco de sua VM.
+
+Ao encerrar a execução de sua simulação, siga para a pasta ~/Apps/veins-veins-2.2/examples/veins/results.
+
+Lá, encontrará provavelmente 4 arquivos de log -> *.sca, *.vec, *.vci, *.elog. Os três primeiros contém informações sobre mobilidade dos nodos e parâmetros gerados pela simulação. O último possui as informações de conectividade e troca de mensagens.
+
+O .elog (event log) deve ser trabalhado pois contém as informações de conexão e momento de contato entre os nodos. Uma análise cuidadosa do event log é suficiente para encontrar as informações necessárias. Usuários de Linux, utilizem a ferramenta grep para buscar possíveis strings como "connectionManager" e procurar os eventos de interesse.
+
+Se não esqueci nada, é só isso.
+
+Na reunião de quarta-feira resolveremos os últimos problemas que aparecerem.
+
+Agradeço a atenção de todos e "I hope you enjoyed!"
+
+\o

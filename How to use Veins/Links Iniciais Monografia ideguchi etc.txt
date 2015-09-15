@@ -1,0 +1,19 @@
+E aí pessoal,
+
+Como prometido, vou passar algumas coisas sobre o trabalho de Redes.
+
+Com relação ao VEINS (simulador):
+
+Instalação do OMNet++
+http://www.omnetpp.org/omnetpp/doc_details/2272-omnet-441-source--ide-tgz
+http://omnetpp.org/doc/omnetpp/InstallGuide.pdf -> Importante!
+
+Veins
+http://veins.car2x.org/download/
+
+Monografia do meu TCC sobre VANETs e DTNs.
+https://drive.google.com/file/d/0By78ULLuFJQQOFlLNVJVOGpIa28/edit?usp=sharing
+
+Assim que eu encontrar mais algumas coisas eu envio.
+
+\o

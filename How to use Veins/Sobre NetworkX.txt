@@ -1,0 +1,13 @@
+Olá tripulantes \o
+
+Bom, não sei se vcs já estão mexendo com algumas das coisas do projeto, mas vou deixar dois posts do meu blog aqui que falam da NetworkX.
+
+A intenção era que fosse uma série de posts, mas o tempo anda escasso.
+
+http://madebyideguchi.blogspot.com.br/2014/01/networkx-working-with-graphs-over-python.html
+
+http://madebyideguchi.blogspot.com.br/2014/01/networkx-working-with-graphs-in-python.html
+
+Se der eu vou postando mais coisas lá à medida do possível.
+
+Abs!

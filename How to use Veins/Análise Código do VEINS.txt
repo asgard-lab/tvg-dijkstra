@@ -1,0 +1,7 @@
+Os registeringNic e unregisteringNic (referentes a quando se conectam as coisas) se encontram em
+
+BaseConnectionManager.cc
+
+
+traCIMobility::preInitialize seta o nome do veículos (que é sempre flow0.i, sendo i um contador), portanto cada nó é um desses, guardado no external_id do TraCIMobility (TraCIMobility::external_id)
+-->SEmpre que um carro entra no mapa, ele entra no preInitialize
