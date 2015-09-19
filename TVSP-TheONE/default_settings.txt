@@ -4,7 +4,7 @@ Scenario.name = Baseline-%%Scenario.endTime%%
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 Scenario.nrofHostGroups = 1
-Scenario.endTime = 40000.0
+Scenario.endTime = 10000.0
 Group.movementModel = ExternalPathMovement
 
 Group.nrofHosts = 1160
@@ -20,8 +20,8 @@ Group.activeFile = traces/Baseline-Active_File.txt
 #Group.traceFile = traces/Trace_30-11-Path_File.txt
 #Group.activeFile = traces/Trace_30-11-Active_File.txt
 
-#Group.router = TVSPRouter
-Group.router = ConnectionsOnlyRouter
+Group.router = TVSPRouter
+#Group.router = ConnectionsOnlyRouter
 
 highspeedInterface.type = SimpleBroadcastInterface
 #highspeedInterface.transmitSpeed = 0.0625M
