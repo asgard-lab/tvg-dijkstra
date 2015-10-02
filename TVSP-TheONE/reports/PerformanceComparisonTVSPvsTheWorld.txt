@@ -1,0 +1,367 @@
+**********************************************************
+* Global Conditions (Conditions for all the simulations) *
+**********************************************************
+
+- Only a single message is generated for the whole simulation (Routers may, or may not, make copies of this message)
+- 20000 seconds of simulation
+- Utilizou o TVG-Baseline-20000.dot, que refere-se ao eventlog Baseline-20000.0_EventLogReport-ORIGINAL.txt, advindo do Baseline trace que
+  Lourdes fez (Traces do crawdad pegando da meia noite até as 19:00 do dia 31/10)
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+***********
+* Teste 1 *
+***********
+Origem: n79
+Destino: n83
+--- TVSP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated shortest path found by TVSP is: n79 n22 n19 n83 
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n83 at time 2211.599999999084 seconds
+TOTAL HOPS: 3
+TOTAL COPIES: 0
+
+Aqui o TVSP, obtendo o caminho que leve a mensagem ao destino o MAIS CEDO possível como sempre, não importa quantos HOPS gaste, mas garantindo que eu chego mais cedo.
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n43 started transfering at 536.4000000000534 seconds, arrived at n22 at time 536.5000000000534 seconds (Hop count: 2 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 4 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n83 at time 2211.599999999084 seconds
+TOTAL HOPS: 4
+TOTAL COPIES: 0
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2211.599999999084				3							0
+First Contact	2211.599999999084				4							0
+
+No First Contact custou 4 hops até a chegada, enquanto no TVSP 3 hops. Logo o TVSP tem uma melhoria de 25% em relação à quantidade de hops necessária para levar a mensage até o destino, no caso, gastando 1 hop a menos. Notamos que o caminho percorrido pelo First Contact router é muito parecido com o feito pelo TVSP até o destino n83. A diferença é que, dado pela política gulosa do First Contact, ele envia a mensagem direto pro n43, que daí depois chegará ao n22, ao passo que com o TVSP n79 já segura a mensagem um pouco e espera até se conectar com n22.
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n22 started transfering at 1419.5999999998044 seconds, arrived at n89 at time 1419.6999999998043 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 1904.799999999363 seconds, arrived at n25 at time 1904.899999999363 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n83 at time 2211.599999999084 seconds
+M1 from n19 started transfering at 2246.1999999990526 seconds, arrived at n106 at time 2246.2999999990525 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 2399.699999998913 seconds, arrived at n40 at time 2399.799999998913 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n106 started transfering at 2706.9999999986335 seconds, arrived at n117 at time 2707.0999999986334 seconds (Hop count: 4 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 3793.699999997645 seconds, arrived at n7 at time 3793.799999997645 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n7 started transfering at 6911.600000007613 seconds, arrived at n91 at time 6911.700000007613 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+M1 from n22 started transfering at 7419.2000000094595 seconds, arrived at n37 at time 7419.30000000946 seconds (Hop count: 2 / Transmission time: 0.1000000000003638)
+M1 from n37 started transfering at 11127.800000022951 seconds, arrived at n119 at time 11127.900000022952 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+M1 from n119 started transfering at 11277.900000023497 seconds, arrived at n30 at time 11278.000000023498 seconds (Hop count: 4 / Transmission time: 0.1000000000003638)
+M1 from n37 started transfering at 11360.300000023797 seconds, arrived at n95 at time 11360.400000023797 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 at time 11610.600000024708 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+TOTAL HOPS: 3 até o destino + hops adicionais gastos deixando cópias inundarem a mensagem até ninguem mais conseguir se conectar com ninguem.
+TOTAL COPIES: 3 cópias até p destino + 10 cópias adicionais.
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2211.599999999084				3							0
+Epidemic		2211.599999999084				3							3
+
+Aqui nota-se que o Epidemic alcançou o nó destino, no caso n83, com o mesmo número de hops que o TVSP, mas precisou gerar 3 cópias. Neste caso vemos claramente que o desempenho do TVSP é melhor, no sentido que não precisou utilizar de cópias para ampliar as possibilidades de contatos.
+É interessante notar que eventualmente o Epidemic acaba percorrendo o mesmo caminho percorrido pelo TVSP, isso pois ainda que o nó n79 faça uma cópia da mensagem inicialmente para n43, ele logo depois se conectará com n22, que seria o mesmo que o TVSP fez, segurando a mensagem ao invés de passá-la primeiro para o n43. O overhead é menor.
+
+
+--- Spray and Wait (Binário / Max 6 cópias) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 1904.799999999363 seconds, arrived at n25 at time 1904.899999999363 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n83 at time 2211.599999999084 seconds
+M1 from n25 started transfering at 3038.299999998332 seconds, arrived at n89 at time 3038.399999998332 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+TOTAL HOPS: 3 até o destino + hops adicionais gastos deixando cópias inundarem a mensagem até esgotar o limite de cópia q pode ter na rede
+TOTAL COPIES: 3 cópias até p destino + 3 cópias adicionais espalhadas.
+
+1) n79: 6 copias
+
+2) n79 conecta com n43 (n79 mandou uma cópia pra n43, cópias 6/2)
+n79: 3 copias restantes
+n43: 3 copias restantes
+
+3) n79 connecta com n22 (n79 mandou uma cópia pra n22, cópias 3/2 )
+n79: 2 copias
+n22: 1 cópias
+
+4) n22 conecta com n19 (n22 mandou uma cópia pra n19 por direct delivery? Nao deveria...)
+n22: 0 cópia
+n19: 1 cópia
+
+5) n43 conecta com n25 (n43 mandou uma cópia pra n25, divide 2/2)
+n43: 1 cópias
+n25: 1 cópia
+
+6) n19 conecta com n83 (n19 manda uma cópia pra n83 por direct delivery)
+n19: 0 cópia
+n83: 1 cópia
+
+7) n25 coneta com n89 (n25 manda uma cópia pra n89 por direct delivery? Nao deveria...)
+n25: 0 cópia
+n89: 1 cópia
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2211.599999999084				3							0
+SaW 6 cp		2211.599999999084				3							3
+
+A situação descrita aqui é idêntica ao ocorrido com o Epidemic, afinal, sabemos que o comportamento do Spray and Wait é um pouco MAIS inteligente que o Epidemic (Não larga um bilhão de cópias de mensagem na rede, e sim restringe o tanto de cópias que pode ter, pra não inundar). Portanto, ele percorreu o mesmo caminho do epidemic, começando por n79, indo pra n22, n19 e por fim n83. A diferença aqui é que, devido ao limite de cópias que podem estar presentes na rede, ele não sai alastrando a epidemia até NÃO poder mais se conectar com ninguém durante os 20000 segundos.
+
+
+--- Spray and Wait (Binário / Max 10 cópias) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 1904.799999999363 seconds, arrived at n25 at time 1904.899999999363 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n83 at time 2211.599999999084 seconds
+M1 from n43 started transfering at 2399.699999998913 seconds, arrived at n40 at time 2399.799999998913 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n25 started transfering at 3038.299999998332 seconds, arrived at n89 at time 3038.399999998332 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n89 started transfering at 3038.499999998332 seconds, arrived at n117 at time 3038.599999998332 seconds (Hop count: 4 / Transmission time: 0.09999999999990905)
+TOTAL HOPS: 3 até o destino + 5 hops adicionais gastos deixando cópias inundarem a mensagem até esgotar o limite de cópia q pode ter na rede
+TOTAL COPIES: 3 cópias até p destino + 5 cópias adicionais espalhadas
+
+
+1) n79: 10 copias
+
+2) n79 conecta com n43 (n79 mandou uma cópia pra n43, cópias 5/2)
+n79: 5 copias restantes
+n43: 5 copias restantes
+
+3) n79 connecta com n22 (n79 mandou uma cópia pra n22, cópias 3/2 )
+n79: 3 copias
+n22: 2 cópias
+
+4) n22 conecta com n19 (n22 mandou uma cópia pra n19, divide 2/2)
+n22: 1 cópia
+n19: 1 cópia
+
+5) n43 conecta com n25 (n43 mandou uma cópia pra n25, divide 5/2)
+n43: 3 cópias
+n25: 2 cópias
+
+6) n19 conecta com n83 (n19 manda uma cópia pra n83 por direct delivery)
+n19: 0 cópia
+n83: 1 cópia
+
+7) n25 coneta com n89 (n25 manda uma cópia pra n89, divide 2/2)
+n25: 1 cópia
+n89: 1 cópia
+
+8) n89 conecta com n117 (n89 manda uma cópia pra n117 por... direct delivery? Não deveria)
+n25: 0 cópia
+n89: 1 copia
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2211.599999999084				3							0
+SaW 10 cp		2211.599999999084				3							3
+
+A situação descrita aqui é idêntica ao ocorrido com o Epidemic, afinal, sabemos que o comportamento do Spray and Wait é um pouco MAIS inteligente que o Epidemic (Não larga um bilhão de cópias de mensagem na rede, e sim restringe o tanto de cópias que pode ter, pra não inundar). Portanto, ele percorreu o mesmo caminho do epidemic, começando por n79, indo pra n22, n19 e por fim n83. A diferença aqui é que, devido ao limite de cópias que podem estar presentes na rede, ele não sai alastrando a epidemia até NÃO poder mais se conectar com ninguém durante os 20000 segundos.
+Um detalhe interessante é que, ao contrário do Spray and Wait com 6 cópias, aqui com 10 cópias, foram possíveis ser geradas mais cópias, até estourar
+o limite que pode transitar na rede e não ter mais nada.
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+
+
+***********
+* Teste 2 *
+***********
+Origem: n79
+Destino: n30
+--- TVSP ---
+--- First Contact ---
+--- Epidemic ---
+--- Spray and Wait (Binário / Max 6 cópias) ---
+--- Spray and Wait (Binário / Max 10 cópias) ---
+
+
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+
+
+***********
+* Teste 3 *
+***********
+Origem: n79
+Destino: n117
+
+--- TVSP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated shortest path found by TVSP is: n79 n22 n19 n83 n106 n117 
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n83 started transfering at 2297.499999999006 seconds, arrived at n106 at time 2297.599999999006 seconds (Hop count: 4 / Transmission time: 0.09999999999990905)
+M1 from n106 started transfering at 2706.9999999986335 seconds, arrived at n117 at time 2707.0999999986334 seconds (Hop count: 5 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n117 at time 2707.0999999986334 secondsds
+TOTAL HOPS: 5
+TOTAL COPIES: 0
+Notas: Envio normal como deveria ser. Até o momento já bateu o First Contact Router em número de hops
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n43 started transfering at 536.4000000000534 seconds, arrived at n22 at time 536.5000000000534 seconds (Hop count: 2 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 4 / Transmission time: 0.09999999999990905)
+M1 from n83 started transfering at 2297.499999999006 seconds, arrived at n106 at time 2297.599999999006 seconds (Hop count: 5 / Transmission time: 0.09999999999990905)
+M1 from n106 started transfering at 2706.9999999986335 seconds, arrived at n117 at time 2707.0999999986334 seconds (Hop count: 6 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n117 at time 2707.0999999986334 seconds
+TOTAL HOPS: 6
+TOTAL COPIES: 0
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2707.0999999986334				5							0
+First Contact	2707.0999999986334				6							0
+5 hops = 83,33333 = 83,4% dos 6 hops. Portanto, o TVSP, por ter gasto menos hops, neste caso, teve uma redução de 16,6% no overhead de envio de mensagem.
+
+Notas: Envio normal. Chegou no mesmo tempo que o TVSP, mas perceba que o First Contact foi usando a política descontrolada dele de enviar para o primeiro cara que aparecer e se conectar. No caso, de acordo com a ordem do TVG, o primeiro par de nós a se conectar, aos 81.7 segundos, é o par n79-n43, fazendo o restante do caminho, similar ao TVSP (n22 -> n19 -> n83 -> n106 -> n117), portanto a única diferença é que n79 até chegar em n22 teve que passar por n43, custando um hop a mais, ao invés de esperar. Neste caso a pressa em ir pegando nós fez ter que gastar mais um hop. Um leve aumento de overhead.
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n22 started transfering at 1419.5999999998044 seconds, arrived at n89 at time 1419.6999999998043 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 1904.799999999363 seconds, arrived at n25 at time 1904.899999999363 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2246.1999999990526 seconds, arrived at n106 at time 2246.2999999990525 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 2399.699999998913 seconds, arrived at n40 at time 2399.799999998913 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n106 started transfering at 2706.9999999986335 seconds, arrived at n117 at time 2707.0999999986334 seconds (Hop count: 4 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n117 at time 2707.0999999986334 seconds
+M1 from n43 started transfering at 3793.699999997645 seconds, arrived at n7 at time 3793.799999997645 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n7 started transfering at 6911.600000007613 seconds, arrived at n91 at time 6911.700000007613 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+M1 from n22 started transfering at 7419.2000000094595 seconds, arrived at n37 at time 7419.30000000946 seconds (Hop count: 2 / Transmission time: 0.1000000000003638)
+M1 from n37 started transfering at 11127.800000022951 seconds, arrived at n119 at time 11127.900000022952 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+M1 from n119 started transfering at 11277.900000023497 seconds, arrived at n30 at time 11278.000000023498 seconds (Hop count: 4 / Transmission time: 0.1000000000003638)
+M1 from n37 started transfering at 11360.300000023797 seconds, arrived at n95 at time 11360.400000023797 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 at time 11610.600000024708 seconds (Hop count: 3 / Transmission time: 0.1000000000003638)
+TOTAL HOPS: 4 até o destino + hops adicionais feitos até não conseguir mais se conectar com ninguem
+TOTAL COPIES: 4 cópias até o destino + 12 outras cópias
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2707.0999999986334				5							0
+Epidemic		2707.0999999986334				4							4
+
+Aqui é feita a política tradicional do Epidemic, sai mandando cópia da mensagem pros primeiros nós que conectar. Sendo assim, ele vai seguindo a ordem
+de conexão capturada pelo TVG. começando sempre primeiro pelo n79 até o n43 e depois n79 para n22, e assim por diante.
+Note que neste processo de cópias o Epidemic chegou ao destino com apenas 4 hops, mas ao custo de produzir 4 cópias da mensagem, é o mesmo tempo produzido pelo TVSP para este TVG, e este nó origem e destino. Percebe-se que o Epidemic conseguiu fazer a mensagem chegar no tempo mais cedo possível naquele nó destino n117, ou seja, 2707.0999999986334 segundos... Reduzindo um único hop, ao custo de ter que fazer 4 cópias da mensagem. Além do overhead de envio é claro, que é menor (menos hops), porém vemos que essa melhoria que o Epidemic tem não é tão significativa pelo preço que teve que pagar. É cópia demais pra poder tirar 1 hop! Além disso, o Epidemic continuou tentando propagar cópias das mensagens além do destino. Mas a partir de um ponto, nenhum nó com cópia para mandar conseguiu se conectar com ninguém, segundo o previsto pelo TVG.
+
+Neste caso vemos que o desempenho do TVSP é melhor. Pois ele não faz uma única cópia e só teve que gastar 1 hop a mais.
+
+
+--- Spray and Wait (Binário / Max 6 cópias) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 1904.799999999363 seconds, arrived at n25 at time 1904.899999999363 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2830.899999998521 seconds, arrived at n117 at time 2830.9999999985207 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n117 at time 2830.9999999985207 seconds
+M1 from n25 started transfering at 3038.299999998332 seconds, arrived at n89 at time 3038.399999998332 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+TOTAL HOPS: 3 até o destino + 2 hops adicionais feitos até não conseguir mais se conectar com ninguem
+TOTAL COPIES: 3 até o destino +3 cópias adicionais
+
+1) n79: 6 cópias
+
+2) n79 se conecta com n43 (n79 envia uma cópia para n43, cópias 6/2)
+n79: 3 cópias
+n43: 3 cópias
+
+3) n79 se conecta com n22 (n79 envia uma cópia para n22, cópias 3/2)
+n79: 2 cópias
+n22: 1 cópia
+
+4) n22 se conecta com n19 (n22 envia uma cópia para n19 por direct delivery? Nao deveria)
+n22: 0 cópias
+n19: 1 cópia
+
+5) n43 se conecta com n25 (n43 envia uma cópia para n25, divide 3/2)
+n43: 2 cópias
+n25: 1 cópia
+
+6) n19 se conecta com n117 (n19 envia uma cópia para n117 por direct delivery)
+n19: 0 cópias
+n117: 1 cópia
+
+7) n25 se conecta com n89 (n25 envia uma cópia para n89 por direct delivery? Nao deveria)
+n25: 0 cópias
+n89: 1 cópia
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2707.0999999986334				5							0
+SaW Binary 6cp	2830.9999999985207				3							3
+
+Percebemos que o spray and wait não só fez o nó chegar mais tarde que o TVSP no destino, além disso economizar dois hops até o destino não parece ter sido algo tão viável, ou seja, um caminho de 3 hops, pois primeiro que chegou mais tarde, e segundo que para gastar menos hops, fez 3 cópias.
+Após isso ele só continuo se propagando até esgotar sua contagem de cópias, aparentemente aqui funciona meio diferente do SaW descrito pela lourdes, aqui mesmo que não seja o destination node ele parece entregar por direct delivery, quando não da mais pra dividir...
+Ocorre nesta simulação que ninguem mais conseguiu se conectar com ninguem passado um tempo.
+
+
+--- Spray and Wait (Binário / Max 10 cópias) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274)
+M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 1904.799999999363 seconds, arrived at n25 at time 1904.899999999363 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.599999999084 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 from n43 started transfering at 2399.699999998913 seconds, arrived at n40 at time 2399.799999998913 seconds (Hop count: 2 / Transmission time: 0.09999999999990905)
+M1 from n19 started transfering at 2830.899999998521 seconds, arrived at n117 at time 2830.9999999985207 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+M1 arrived at DESTINATION n117 at time 2830.9999999985207 seconds
+M1 from n25 started transfering at 3038.299999998332 seconds, arrived at n89 at time 3038.399999998332 seconds (Hop count: 3 / Transmission time: 0.09999999999990905)
+
+1) n79: 10 copias
+
+				Custo de tempo até achegada		Custo de hops até chegada	Cópias gastas até chegada
+TVSP			2707.0999999986334				5							0
+SaW Binary 10cp	2830.9999999985207				3							3
+
+1) n79: 10 cópias
+
+2) n79 se conecta com n43 (n79 envia uma cópia para n43, cópias 10/2)
+n79: 5 cópias
+n43: 5 cópias
+
+3) n79 se conecta com n22 (n79 envia uma cópia para n22, cópias 5/2)
+n79: 3 cópias
+n22: 2 cópia
+
+4) n22 se conecta com n19 (n22 envia uma cópia para n19, cópias 2/2)
+n22: 1 cópias
+n19: 1 cópia
+
+5) n43 se conecta com n25 (n43 envia uma cópia para n25, divide 5/2)
+n43: 3 cópias
+n25: 2 cópia
+
+6) n19 se conecta com n117 (n19 envia uma cópia para n117 por direct delivery)
+n19: 0 cópias
+n117: 1 cópia
+
+7) n25 se conecta com n89 (n25 envia uma cópia para n89, cópias 2/2)
+n25: 1 cópias
+n89: 1 cópia
+
+WTF n25 deveria poder transferir pra mais alguem... bom enfim. já deu pra entender que quanto maior o numero de cópias , maior o número de gente que pode propagar, até estourar o limite.
+
+Percebemos que o spray and wait não só fez o nó chegar mais tarde que o TVSP no destino, além disso economizar dois hops até o destino não parece ter sido algo tão viável, ou seja, um caminho de 3 hops, pois primeiro que chegou mais tarde, e segundo que para gastar menos hops, fez 3 cópias.
+
+Acredito que não houve mais cópias que iso, ou seja, u mtotal de 10, pois a configuração deste spray and wait é para q se tenha no máximo 10 cópias da mensagem na rede. Pois no epidemic ele envia de modo similar, sem controle do numero de copias e continua rodando até nao ter REALMENTE ninguem pra conectar.
+
+
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
