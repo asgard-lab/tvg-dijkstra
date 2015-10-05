@@ -60,10 +60,10 @@ class Edge(object):
 		return self.host2
 
 # Método checkExistingEdge
-def checkExistingEdge(node1,node2):
+def checkExistingEdge(edge_list_parameter,node1,node2):
 	""" Método que verifica se já existe uma aresta com os nós node1 e node2. """
 	is_existing_edge = False
-	for item in edge_list:
+	for i, item in enumerate(edge_list_parameter):
 		if ((item.getHost1() == str(node1) and item.getHost2() == str(node2)) or
 			(item.getHost1() == str(node2) and item.getHost2() == str(node1))):
 			is_existing_edge = True
@@ -91,7 +91,7 @@ for line in source_file: # Lê log da simulação linha por linha
 	# current_line_list[4] = Se for CONN, aqui será up ou down
 	if (current_line_list[1] == "CONN"): # Se achou CONN na lista atual
 		# Se o par de nós encontrado já foi registrado como aresta, adiciona esta mesma aresta de novo na lista edge_list!
-		if(checkExistingEdge(current_line_list[2], current_line_list[3]) == False):
+		if(checkExistingEdge(edge_list, current_line_list[2], current_line_list[3]) == False):
 			# Adiciona novo objeto Edge, com o que foi lido na linha, à lista.
 			new_edge = Edge()
 			new_edge.setHost1(current_line_list[2])
@@ -99,13 +99,13 @@ for line in source_file: # Lê log da simulação linha por linha
 			edge_list.append(new_edge)
 
 		# Independente de ser aresta repetida ou não, coloca o key-value pair no objeto correspondente aresta:
-		for item in edge_list:
+		for i, item in enumerate(edge_list):
 			if (((item.getHost1() == str(current_line_list[2])) and (item.getHost2() == str(current_line_list[3]))) or 
 				((item.getHost1() == str(current_line_list[3])) and (item.getHost2() == str(current_line_list[2])))):
 				item.addConnectionEvent(current_line_list)
 
 # --- Escrevendo eventos CONN, no target file: ---
-for item in edge_list:
+for i, item in enumerate(edge_list):
 	target_file.write("\t" + str(item.getHost1()) + "--" + str(item.getHost2()) + " [label=\"")
 	has_pair_of_brackets = False # Flag para ver se fechou colchetes, e se fechou colcheges e abriu outro, entao é intervalo adicional
 	for element in item.getConnection_EventLog(): # Como no eventlog está ordenado pelo tempo já, não tem porque ordenar aqui por tempo.

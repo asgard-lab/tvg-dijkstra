@@ -1,17 +1,10 @@
 #### SCENARIO NAME - CENÁRIO BASELINE USADO PRA TUDO ####
-Scenario.name = Baseline-%%Scenario.endTime%%
+#Scenario.name = Baseline-%%Scenario.endTime%%
 
-#### SCENARIO NAME - 2 QUARTAS-FEIRAS (21/11/2001 e 28/11/2001) NÃO TEM OS MESMOS PARES DE CONEXÃO!!! ABORTAR ####
-#Scenario.name = Trace-21-11-%%Scenario.endTime%%
-#Scenario.name = Trace-28-11-%%Scenario.endTime%%
-
-#### SCENARIO NAME - 2 QUINTAS-FEIRAS (22/11/2001 e 29/11/2001) ####
-#Scenario.name = Trace-22-11-%%Scenario.endTime%%
-#Scenario.name = Trace-29-11-%%Scenario.endTime%%
-
-#### SCENARIO NAME - 2 SEXTAS-FEIRAS (23/11/2001 e 30/11/2001) NÃO TEM OS MESMOS PARES DE CONEXÃO!!! ABORTAR ####
-#Scenario.name = Trace-23-11-%%Scenario.endTime%%
-#Scenario.name = Trace-30-11-%%Scenario.endTime%%
+#### SCENARIO NAME - CENÁRIOS RELATIVOS AO TRACE 02-12 ####
+Scenario.name = Trace-02-12-%%Scenario.endTime%%
+#Scenario.name = Trace-02-12-Virtual_1-%%Scenario.endTime%%
+#Scenario.name = Trace-02-12-Virtual_2-%%Scenario.endTime%%
 
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
@@ -20,16 +13,22 @@ Scenario.endTime = 20000.0
 Group.movementModel = ExternalPathMovement
 #--------------------------------------------------------------------------------------------------
 #### NRO_HOSTS + TRACE_FILES - CENÁRIO BASELINE USADO PRA TUDO ####
-Group.nrofHosts = 1160
-Group.traceFile = traces/Baseline-Path_File.txt
-Group.activeFile = traces/Baseline-Active_File.txt
+#Group.nrofHosts = 1160
+#Group.traceFile = traces/Baseline-Path_File.txt
+#Group.activeFile = traces/Baseline-Active_File.txt
 #--------------------------------------------------------------------------------------------------
-#### NRO_HOSTS + TRACE_FILES - QUARTAS-FEIRAS (21/11/2001) ####
-#Group.nrofHosts = 1171
-#Group.traceFile = traces/Trace-21-11-Path_File.txt
-#Group.activeFile = traces/Trace-21-11-Active_File.txt
-#--------------------------------------------------------------------------------------------------
+#### NRO_HOSTS + TRACE_FILES - CENÁRIO TRACE-02-12 / VIRTUAL_TRACE_1 / VIRTUAL_TRACE_2 ####
+Group.nrofHosts = 382
 
+Group.traceFile = traces/Trace-02-12-Path_File.txt
+Group.activeFile = traces/Trace-02-12-Active_File.txt
+
+#Group.traceFile = traces/Trace-02-12-Virtual_1-Path_File.txt
+#Group.activeFile = traces/Trace-02-12-Virtual_1-Active_File.txt
+
+#Group.traceFile = traces/Trace-02-12-Virtual_2-Path_File.txt
+#Group.activeFile = traces/Trace-02-12-Virtual_2-Active_File.txt
+#--------------------------------------------------------------------------------------------------
 #Group.router = TVSPRouter
 Group.router = ConnectionsOnlyRouter
 #Group.router = FirstContactRouter_CUSTOM
@@ -68,28 +67,28 @@ MovementModel.worldSize = 200000,200000
 MovementModel.warmup = 1000
 
 MapBasedMovement.nrofMapFiles = 0
-Report.nrofReports = 18
+Report.nrofReports = 1
 Report.warmup = 0
 Report.reportDir = reports/
 Report.granularity = 60
 Report.report1 = EventLogReport
-Report.report2 = ContactsDuringAnICTReport
-Report.report3 = ContactsPerHourReport
-Report.report4 = ContactTimesReport
-Report.report5 = ContactsPerHourReport
-Report.report6 = CreatedMessagesReport
-Report.report7 = DeliveredMessagesReport
-Report.report8 = DistanceDelayReport
-Report.report9 = EncountersVSUniqueEncountersReport
-Report.report10 = InterContactTimesReport
-Report.report11 = MessageDelayReport
-Report.report12 = MessageDeliveryReport
-Report.report13 = MessageLocationReport
-Report.report14 = MessageReport
-Report.report15 = MessageStatsReport
-Report.report16 = TotalContactTimeReport
-Report.report17 = TotalEncountersReport
-Report.report18 = UniqueEncountersReport
+#Report.report2 = ContactsDuringAnICTReport
+#Report.report3 = ContactsPerHourReport
+#Report.report4 = ContactTimesReport
+#Report.report5 = ContactsPerHourReport
+#Report.report6 = CreatedMessagesReport
+#Report.report7 = DeliveredMessagesReport
+#Report.report8 = DistanceDelayReport
+#Report.report9 = EncountersVSUniqueEncountersReport
+#Report.report10 = InterContactTimesReport
+#Report.report11 = MessageDelayReport
+#Report.report12 = MessageDeliveryReport
+#Report.report13 = MessageLocationReport
+#Report.report14 = MessageReport
+#Report.report15 = MessageStatsReport
+#Report.report16 = TotalContactTimeReport
+#Report.report17 = TotalEncountersReport
+#Report.report18 = UniqueEncountersReport
 
 Optimization.cellSizeMult = 5
 Optimization.randomizeUpdateOrder = true

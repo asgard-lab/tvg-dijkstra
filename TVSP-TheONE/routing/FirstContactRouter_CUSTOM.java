@@ -66,7 +66,7 @@ public class FirstContactRouter_CUSTOM extends ActiveRouter {
 	public Message messageTransferred(String id, DTNHost from) {
 		Message m = super.messageTransferred(id, from);
 		double message_transfer_time = m.getReceiveTime() - this.getHost().getRouter().getTimeWhenMessageTransferStarted();
-		System.out.println(id + " from " +  from + " started transfering at " + this.getHost().getRouter().getTimeWhenMessageTransferStarted() + " seconds, arrived at " + this.getHost() + " at time " + m.getReceiveTime() + " seconds (Hop count: " + m.getHopCount() + " / Transmission time: " + message_transfer_time + ")");
+		System.out.println(id + " from " +  from + " started transfering at " + this.getHost().getRouter().getTimeWhenMessageTransferStarted() + " seconds, arrived at " + this.getHost() + " at time " + m.getReceiveTime() + " seconds (Hop count: " + m.getHopCount() + " / Transmission time: " + message_transfer_time + " seconds)");
 		if (m.getTo() == getHost()) {
 			System.out.println(id + " arrived at DESTINATION " + this.getHost()+ " at time " + m.getReceiveTime() + " seconds");
 		} 

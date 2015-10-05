@@ -76,7 +76,7 @@ public class SprayAndWaitRouter_CUSTOM extends ActiveRouter {
 		msg.updateProperty(MSG_COUNT_PROPERTY, nrofCopies);
 		
 		double message_transfer_time = msg.getReceiveTime() - this.getHost().getRouter().getTimeWhenMessageTransferStarted();
-		System.out.println(id + " from " +  from + " started transfering at " + this.getHost().getRouter().getTimeWhenMessageTransferStarted() + " seconds, arrived at " + this.getHost() + " at time " + msg.getReceiveTime() + " seconds (Hop count: " + msg.getHopCount() + " / Transmission time: " + message_transfer_time + ")");
+		System.out.println(id + " from " +  from + " started transfering at " + this.getHost().getRouter().getTimeWhenMessageTransferStarted() + " seconds, arrived at " + this.getHost() + " at time " + msg.getReceiveTime() + " seconds (Hop count: " + msg.getHopCount() + " / Transmission time: " + message_transfer_time + " seconds)");
 		if (msg.getTo() == getHost()) {
 			System.out.println(id + " arrived at DESTINATION " + this.getHost()+ " at time " + msg.getReceiveTime() + " seconds");
 		} 
