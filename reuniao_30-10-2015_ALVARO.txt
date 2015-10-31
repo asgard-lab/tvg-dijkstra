@@ -1,0 +1,9 @@
+================================
+Reunião 30/10/2015 10:30 ~
+================================
+- adicionar total de mensagens geradas durante a simulação
+- texto em portugues
+- basear no artigo da lourdes
+- modificar os graficos la do Excel pra ter apenas duas casas decimais senao fica poluído demais
+- tal qual a figura 12 do aretigo da sbrc da lourdes coloca 3 graficos do desempenho do tvsp, lado a lado ,sendo o terceiro deles um dos exemplos quando
+dá pau (o first contact nao funciona)
