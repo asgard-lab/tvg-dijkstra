@@ -11,4 +11,4 @@ Aluno: 					Álvaro Shiokawa Alvarez
   caminho sempre busca com que se encontre o nó destino o mais cedo possível, podendo ou não envovler um número
   menor de hops.
 
-- Para a implementação deste projeto, estamos utilizando o simulador de redes DTN, o TheONE, feito em JAVA.
+- Para a implementação deste projeto, estamos utilizando o simulador de redes DTN, o TheONE (Versão 1.6.0, lançada em 25/07/2015), feito em JAVA.
