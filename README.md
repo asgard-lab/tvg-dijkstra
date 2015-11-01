@@ -8,7 +8,9 @@ Aluno: 					Álvaro Shiokawa Alvarez
 
 - Desenvolvemos um algoritmo que atua em grafos TVG, algoritmo este apelidado de TVSP (Time-Varying Shortest Path),
   que busca o melhor caminho de um nó origem a um nó destino em um grafo TVG. É importante frisar que este melhor
-  caminho sempre busca com que se encontre o nó destino o mais cedo possível, podendo ou não envovler um número
+  caminho sempre busca com que se encontre o nó destino o mais cedo possível, podendo ou não envolver um número
   menor de hops.
 
 - Para a implementação deste projeto, estamos utilizando o simulador de redes DTN, o TheONE (Versão 1.6.0, lançada em 25/07/2015), feito em JAVA.
+
+- O código fonte do TVSP se encontra dentro da pasta "one"", mais precisamento sua implementação está dentro da pasta "routing", em uma classe chamada de TVSPRouter.java.

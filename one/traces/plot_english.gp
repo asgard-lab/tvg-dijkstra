@@ -167,9 +167,10 @@ GNUTERM = "wxt"
 ARGC = 0
 ARG0 = ""
 x = 0.0
-plot "ID_0900-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0900 in 02/12/2001", "ID_0900-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0900 in Synthetic 02/12/2001"
-#plot "ID_0901-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0901 in 02/12/2001", "ID_0901-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0901 in Synthetic 02/12/2001"
-#plot "ID_0907-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0907 in 02/12/2001", "ID_0907-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0907 in Synthetic 02/12/2001"
-#plot "ID_0914-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0914 in 02/12/2001", "ID_0914-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0914 in Synthetic 02/12/2001"
-#plot "ID_0918-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0918 in 02/12/2001", "ID_0918-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0918 in Synthetic 02/12/2001"
+# ------ PLOTAR EM INGLÊS ------
+plot "ID_0900-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0900 in 02/12/2001", "ID_0900-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0900 in 02/12/2001 (Synthetic)"
+#plot "ID_0901-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0901 in 02/12/2001", "ID_0901-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0901 in 02/12/2001 (Synthetic)"
+#plot "ID_0907-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0907 in 02/12/2001", "ID_0907-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0907 in 02/12/2001 (Synthetic)"
+#plot "ID_0914-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0914 in 02/12/2001", "ID_0914-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0914 in 02/12/2001 (Synthetic)"
+#plot "ID_0918-Trace-02-12.txt" using 3:4 smooth unique with linespoints title "ID 0918 in 02/12/2001", "ID_0918-Trace-02-12-Synthetic.txt" using 3:4 smooth unique with linespoints title "ID 0918 in 02/12/2001 (Synthetic)"
 #    EOF
