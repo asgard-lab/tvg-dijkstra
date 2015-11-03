@@ -25,16 +25,18 @@ Group.activeFile = traces/Baseline-Active_File.txt
 #Group.traceFile = traces/Trace-02-12-Synthetic-Path_File.txt
 #Group.activeFile = traces/Trace-02-12-Synthetic-Active_File.txt
 #--------------------------------------------------------------------------------------------------
-Group.router = TVSPRouter
 #Group.router = ConnectionsOnlyRouter
+Group.router = TVSPRouter
 #Group.router = FirstContactRouter_CUSTOM
 #Group.router = EpidemicRouter_CUSTOM
 #Group.router = SprayAndWaitRouter_CUSTOM
 
 highspeedInterface.type = SimpleBroadcastInterface
-#highspeedInterface.transmitSpeed = 0.0625M
-highspeedInterface.transmitSpeed = 1000M
+
+#0.625MBps = 625kBps = 5Mbps
+highspeedInterface.transmitSpeed = 0.625M
 highspeedInterface.transmitRange = 250
+
 Group.bufferSize = 2G
 Group.waitTime = 0, 50
 Group.nrofInterfaces = 1

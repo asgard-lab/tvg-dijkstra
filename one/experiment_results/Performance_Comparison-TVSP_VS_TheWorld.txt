@@ -4,6 +4,7 @@
 
 - Só existe uma única instâncai da mensagem na simulação, e dependendo do roteador, pode ou não ser copiada
 - Sempre 20000 segundos de simulação
+- A interface de rede de cada nó tem taxa de transmissão como 0.625MBps = 625KBps = 5Mbps
 - Utilizou o TVG-Baseline-20000.dot, que refere-se ao eventlog Baseline-20000.0_EventLogReport-ORIGINAL.txt, advindo do Baseline trace que
   Lourdes fez (Traces do crawdad pegando da 00:00 até as 19:00 do dia 31/10)
 
@@ -39,7 +40,7 @@ Notas: No First Contact custou 4 hops até a chegada, enquanto no TVSP 3 hops. L
 
 --- Epidemic ---
 Processed 5121KB out of 7373KB (69%)
-M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432)
+M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.69999999999963 seconds (Hop count: 1 / Transmission time: 0.09999999999999432 seconds)
 M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.4000000000534 seconds (Hop count: 1 / Transmission time: 0.10000000000002274 seconds)
 M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.7999999999606 seconds (Hop count: 2 / Transmission time: 0.09999999999990905 seconds)
 M1 from n22 started transfering at 1419.5999999998044 seconds, arrived at n89 at time 1419.6999999998043 seconds (Hop count: 2 / Transmission time: 0.09999999999990905 seconds)
