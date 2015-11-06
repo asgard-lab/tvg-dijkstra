@@ -1,0 +1,52 @@
+The rice/ad_hoc_city dataset (v.2003-09-11)  >  the bus_mobility traceset
+
+There are 5 traces in this traceset
+download this trace set
+CRAWDAD mirrors:  US UK AU 
+size="125MB" md5="4a33bf38aa86ad0583a97bfe6fa65a88" type="gz"
+last modified
+2008-07-23
+
+reason for most recent change
+the initial version.
+
+short description
+Traceset of the movement of the fleet of city buses in Seattle.
+
+description
+This traceset consists of several weeklong traces of the movement of the fleet of city buses in Seattle, Washington.
+
+release date
+2003-09-11
+
+date/time of measurement start
+2001-10-30
+
+date/time of measurement end
+2001-12-02
+
+methodology
+To evaluate the Ad Hoc City architecture, we used traces of the actual movement of buses in the Seattle, Washington area King County Metro bus system. We chose the King County bus system because the data was available on-line, and because bus movement patterns closely match other vehicular traffic patterns.
+
+An Automated Vehicle Location (AVL) system tracks each bus using a combination of odometry and signpost transmitters. Internet users can monitor the location of each bus in real-time using the Busview software. We developed mechanisms for recording the data being delivered to Busview clients, and for converting the recorded data into movement patterns suitable for use in the ns-2 network simulator, which we use to evaluate our system.
+
+
+Ou seja, foram gravados em 2001, para o Trace 5 temos as seguintes datas, as quais mapeamos as respectivas dias da semana:
+Vou escolher duas segundas (19/11/2001 e 26/09/2001)
+16/11/2001 -> Friday
+17/11/2001 -> Saturday
+18/11/2001 -> Sunday
+19/11/2001 -> Monday
+20/11/2001 -> Tuesday
+21/11/2001 -> Wednesday
+22/11/2001 -> Thursday
+23/11/2001 -> Friday
+24/11/2001 -> Saturday
+25/11/2001 -> Sunday
+26/11/2001 -> Monday
+27/11/2001 -> Tuesday
+28/11/2001 -> Wednesday
+29/11/2001 -> Thursday
+30/11/2001 -> Friday
+01/12/2001 -> Saturday
+02/12/2001 -> Sunday
