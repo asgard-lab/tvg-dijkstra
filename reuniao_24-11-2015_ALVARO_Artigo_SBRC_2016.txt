@@ -1,0 +1,120 @@
+=======================================
+= Reunião 24/11/2015   16:00 ~  18:00 =
+=======================================
+- Lourdes e eu conversamos acerca de uns detalhes dos artigo, o q da pra resumir e tal.
+
+- Nesta reunião estamos fazendo uma 1a revisão do nosso artigo para o SBRC 2016.
+
+-nós separados uns 10 kilometros conseguiram se comunicar em tanto tempo.
+
+- conseguir estimar a distancia...
+- momento
+
+-------> INtroduçao
+- Tirar o subitulto do objetivos do trablaho e deixa tudo junto com a trinduçao
+
+- Esta faltando falar qual é o problema? Falar porque as Vanets e DTN sao importantes.
+
+- Falar qual o problema que estou tentando resolver (falar do atraso), algumas implementaçoes geram muitas copias.
+
+- é dificil encontrar um nó.
+
+- para entregar a mensagem em um tempo, é, nao há a sobrecarga de multiplas.
+
+-  existem algoritmos de multiplas copias q usam para entregar algunas copias ao destino.
+
+
+- a proposta do nosso trabalho é usando uma so copia, e uma abordagme pra trabalhar e mgrafo.
+
+- nossos resultados conseguem entregar a mensagem em um atraso similar ao epidemic so q a sobrecarga é menor q o epidemic.
+
+- definir qual o tema, qual problema estou tentado reoslve,r como pretender resolver, e os resultados.
+
+
+--> Abstract tem que ter bastante detalhe e claro.
+
+
+---------> Dentro de trabalhos relacionados poe a fundamentaçao
+--------------> Fundamentaçao
+--> pode tirar exemplo de definiçao  (Edge_definition) 
+
+
+-->  pode tirar o edge_intervals, so deixa o exmeplo do graphviz.
+
+
+---> colocar uma seçao o método (metodologia)
+--> No inicio , a  nossa metodologia é chamado TVSP, e consideramos
+-----> fala como estruturou o tvg, como implementou
+---> colocar uma definição, TVSP , nós definimos.
+
+--> trazer o algoritmo aqui pra metodologia
+
+
+----> Colocar uma seçao falando do simulador e dos parametros de simul''cao
+
+
+
+----> Simuador ONE (esta bom)
+--> Colocar ele dentro da seção dos experimentos.
+--> Não precisa 
+--> simulador usa arquivos de configuração.
+--> Nao precisa falar dos parametros do theone.
+---->.
+
+---> Não precisa falar da lista de mensagens e lista de conexões.
+
+
+--------> Detalhes da parte dos cenarios de simulaçao
+--> comentar que os numeros minimos de copias do SaW.
+--> Escreve no caption dos graficos o detalhe quando First contact nao da certo
+
+--> Aqui que
+
+
+
+
+-------------> algoritmo TVSP
+--> inves de mostrar, tentar descrever em alto nivel 
+    do metodo. (se precisar tira uma foto) 
+
+
+
+
+
+    seçoes q tem ter
+
+
+
+------
+Detalhes de implementaçao pesado pode tirar do artigo.
+   1) introduçao
+   2) trabalhos realcaionad e fudamentaçao
+   3) metodologia (fala do TVSP dentro da metodlogia)
+       ----> explicar do tvsp na metodologia.
+       ----> importante falar do algoritmo em alto nivel.
+       --------> resumir os detalhes das partes previas.
+       ---> resumir a parte do algoritmo da implementaçao
+
+       ----> falar da implementaçao  dele puxando pra seçao do theone.
+   4) simulaçao e parametros de simulaçao (Falar do theone)
+       ---> tratamento dos traces vem aqui.
+       ----> nao precisa explicar os detalhes dos traces (q segue tal sintaxe) --> Colocar como anexo na tese os detalhes de codigos)
+       ----> colocar os parametros relevantes em uma tabelinha
+
+   5) resultados dos experimentos
+   6) Conclusoes
+------
+
+
+
+---> Tentar incluir uma comeplexidade para o algoritmo.
+
+
+
+!!!!!!!!!!!!!! WARNING WARNING WARNING !!!!!!!!!!!!!!!!!!
+---> E se perguntassem: mas porque é melhor usar o TVSP a usar um algorimto fim a fim, sendo q otvsp se comportando a igualzinho a fim a fim. 
+
+vantagem, da dtn é q nao precisamos de rota a fim a fim (origem a fim).
+
+
+--->
