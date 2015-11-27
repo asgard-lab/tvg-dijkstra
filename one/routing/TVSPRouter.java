@@ -180,9 +180,9 @@ public class TVSPRouter extends ActiveRouter {
 		for (int i=0, n=connections.size(); i<n; i++) {
 			Connection con = connections.get(i);
 			String a = con.getOtherNode(this.getHost()).toString();
-			String b = TVG.getInstance().getCurrentShortestPath().getFirst().toString();
+			String b = TVG.getInstance().getCurrentFastestPath().getFirst().toString();
 			if(a.equals(b)){
-				TVG.getInstance().getCurrentShortestPath().removeFirst();
+				TVG.getInstance().getCurrentFastestPath().removeFirst();
 				Message started = tryAllMessages(con, messages); 
 				if (started != null) {
 					return con;

@@ -85,13 +85,13 @@ public class TVG {
 		return false;
 	}	
 	
-	/* setShortestPath */
-	public void setShortestPath(LinkedList<Node> caminho) {
+	/* setFastestPath */
+	public void setFastestPath(LinkedList<Node> caminho) {
 		fastest_path = caminho;
 	}
 
-	/* getCurrentShortestPath */
-	public LinkedList<Node> getCurrentShortestPath() {
+	/* getCurrentFastestPath */
+	public LinkedList<Node> getCurrentFastestPath() {
 		return fastest_path;
 	}
 	

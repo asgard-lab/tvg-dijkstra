@@ -119,12 +119,12 @@ public class DTNSim {
 			try{
 				TVSP_Algorithm tvsp = new TVSP_Algorithm(TVG.getInstance());
 				tvsp.execute_tvsp(TVG.getInstance().getNodeByLabel(origin_node, TVG.getInstance().getNodes()));
-				TVG.getInstance().setShortestPath(tvsp.getPath(TVG.getInstance().getNodeByLabel(destination_node, TVG.getInstance().getNodes())));
+				TVG.getInstance().setFastestPath(tvsp.getPath(TVG.getInstance().getNodeByLabel(destination_node, TVG.getInstance().getNodes())));
 				System.out.print("The estimated shortest path found by TVSP is: ");
-				for (Node vertex : TVG.getInstance().getCurrentShortestPath()) {
+				for (Node vertex : TVG.getInstance().getCurrentFastestPath()) {
 					System.out.print(vertex + " ");
 				}
-				TVG.getInstance().getCurrentShortestPath().removeFirst();
+				TVG.getInstance().getCurrentFastestPath().removeFirst();
 				System.out.print("\n");
 			} catch(NullPointerException f){
 				System.out.println("\nTVSP COULDN'T find a shortest path between " + origin_node + " and " + destination_node + "!");
