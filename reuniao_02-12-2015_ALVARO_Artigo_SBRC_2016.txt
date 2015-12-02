@@ -1,0 +1,51 @@
+======================================
+= Reunião 02/11/2015   16:00 ~ 18:00 =
+======================================
+- Lourdes conseguiu resumir da parte de grafos TVG e incluir mais referências.
+----> Introdução
+ na parte final... comentar no fim da introdução, falar sobre a organização do trabalho.
+
+
+----> trabalhos relacionados: cortar a parte do  Esta seçao até o primeiro. (rescrever o para tanto)
+
+     ---> Reduzir a parte de multi copy.
+
+
+     --- multi copy blablabla --> Colocar que o exemplo mais fundamental é o Epidemic, ai fala   --> fala que algoritmo multicopy trablaha.
+
+
+     ---> na parte do spray and wait, falar q tem abordagem de espalhamento de copias controlada. só fala do binário , noa precisa falar do outro. --> tirar o aninhamento q fala do epidemic e spray and wait.
+
+
+
+ --> trabalhos relacionados --> tentar fazer mais horizontal  a imagem do graphviz.
+            
+
+            ---> Parte do Two step LTT ---> resume um pouco mais. não precisa falar de bullets nem nada.
+
+    ---> não precisa comentar do algoritmos classificadores (pode colocar na tese)
+
+
+
+---> Metodologia ---> Dá pra resumir  um pouco mais da parte do tratamento do traces (pro artigo tira o trecho do eventlog)
+ tirar fora as imagens explicando o método (deixa só pra tese, se tiver como, junta todas figuras em uma só ) --> 
+       a parte q explica da metodologia está bem do ponto de vista da simulação.
+
+       ---> Pode mudar o titulo da seção da Metodologia pra Algoritmo TVSP e metodologia.
+
+       --> falar antes do método, explicar o tvsp direto...
+           primeiro falar do TVSP (4a fase do método), e depois explica o restante do método (colocá-lo como fase prinicpal), e já explica como eu testei e implementei.
+
+
+--->  Seção do ONE, pode tirar fora a parte que fala tempo, numero de grupos, numero de nos, rotudlo identifidor... pode tirar fora o event log. (pode resumir )  ---> na parte de tratamento de traces pdoe tirar fora a explicaçÃo do traceFile e do activeFile (Pra tese pode deixar)
+
+   ---> Pode falar na seção 4, q pode falar q o ONE usa o trace externo (fala o q vc fez ,e nao como vc fez)
+
+
+---> No seção de esperimentos e resultados, junta a precisão e desempenho em so, e faz uma conclusão para uma só. 
+
+    --> inves de chamar de conclusao de analise bla, chama de observaçoes dos resultados.
+
+
+
+
