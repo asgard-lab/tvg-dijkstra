@@ -90,9 +90,9 @@ public class DTNSim {
 		/**---------------------------------------------------------------------------------------------------------**/
 		List<DTNHost> dtnhosts_list = new ArrayList<DTNHost>();
 		dtnhosts_list = SimScenario.getInstance().getHosts();
-		String has_tvsp_router_string =dtnhosts_list.get(0).getRouter().getRoutingInfo().toString();
-		if (has_tvsp_router_string.contains("TVSP")){
-			/* --------- TVSP --------- */
+		String has_tvfp_router_string =dtnhosts_list.get(0).getRouter().getRoutingInfo().toString();
+		if (has_tvfp_router_string.contains("TVFP")){
+			/* --------- TVFP --------- */
 			/* Popula o grafo TVG com os nós */
 			TVG.getInstance().populateGraph();
 		
@@ -117,17 +117,17 @@ public class DTNSim {
 		
 			/* Determinando o menor caminho a ser tomado pela mensagem baseado num nó origem e destino */
 			try{
-				TVSP_Algorithm tvsp = new TVSP_Algorithm(TVG.getInstance());
-				tvsp.execute_tvsp(TVG.getInstance().getNodeByLabel(origin_node, TVG.getInstance().getNodes()));
-				TVG.getInstance().setFastestPath(tvsp.getPath(TVG.getInstance().getNodeByLabel(destination_node, TVG.getInstance().getNodes())));
-				System.out.print("The estimated shortest path found by TVSP is: ");
+				TVFP_Algorithm tvfp = new TVFP_Algorithm(TVG.getInstance());
+				tvfp.execute_tvsp(TVG.getInstance().getNodeByLabel(origin_node, TVG.getInstance().getNodes()));
+				TVG.getInstance().setFastestPath(tvfp.getPath(TVG.getInstance().getNodeByLabel(destination_node, TVG.getInstance().getNodes())));
+				System.out.print("The estimated shortest path found by TVFP is: ");
 				for (Node vertex : TVG.getInstance().getCurrentFastestPath()) {
 					System.out.print(vertex + " ");
 				}
 				TVG.getInstance().getCurrentFastestPath().removeFirst();
 				System.out.print("\n");
 			} catch(NullPointerException f){
-				System.out.println("\nTVSP COULDN'T find a shortest path between " + origin_node + " and " + destination_node + "!");
+				System.out.println("\nTVFP COULDN'T find a shortest path between " + origin_node + " and " + destination_node + "!");
 			}
 		}
 		/**---------------------------------------------------------------------------------------------------------**/		

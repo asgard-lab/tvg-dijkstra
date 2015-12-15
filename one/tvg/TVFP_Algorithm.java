@@ -12,7 +12,7 @@ import java.util.Set;
 import core.DTNHost;
 /* NOTE: This algorithm is heavily based off Lars Vogel's Djikstra Algorithm implementation, so credits to him for the original code!
  * The link to his implementation is at http://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html */
-public class TVSP_Algorithm {
+public class TVFP_Algorithm {
 	/**==============**/
 	/**= Attributes =**/
 	/**==============**/
@@ -30,7 +30,7 @@ public class TVSP_Algorithm {
 	/**= Métodos =**/
 	/**===========**/
 	/* Specific Constructor */
-	public TVSP_Algorithm(TVG tvg) {
+	public TVFP_Algorithm(TVG tvg) {
 		// Copies the graph's nodes and edges into the Djikstra object so that one can operate on both.
 		this.nodes = new ArrayList<Node>(tvg.getNodes());
 		this.edges = new ArrayList<Edge>(tvg.getEdges());

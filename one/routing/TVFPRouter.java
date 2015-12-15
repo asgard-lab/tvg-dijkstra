@@ -21,7 +21,7 @@ import tvg.*;
  * TVSP Router, that will be, initially like a First contact router which uses only a single copy of the message 
  * (or fragments) and forwards it to the first available contact.
  */
-public class TVSPRouter extends ActiveRouter {
+public class TVFPRouter extends ActiveRouter {
 	/**===========**/
 	/**= Methods =**/
 	/**===========**/
@@ -31,7 +31,7 @@ public class TVSPRouter extends ActiveRouter {
 	 * the given Settings object.
 	 * @param s The settings object
 	 */
-	public TVSPRouter(Settings s) {
+	public TVFPRouter(Settings s) {
 		super(s);
 	}
 	
@@ -39,7 +39,7 @@ public class TVSPRouter extends ActiveRouter {
 	 * Copy constructor.
 	 * @param r The router prototype where setting values are copied from
 	 */
-	protected TVSPRouter(TVSPRouter r) {
+	protected TVFPRouter(TVFPRouter r) {
 		super(r);
 	}
 	
@@ -220,8 +220,8 @@ public class TVSPRouter extends ActiveRouter {
 	}	
 
 	@Override
-	public TVSPRouter replicate() {
-		return new TVSPRouter(this);
+	public TVFPRouter replicate() {
+		return new TVFPRouter(this);
 	}
 
 }

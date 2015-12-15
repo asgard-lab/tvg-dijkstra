@@ -26,7 +26,7 @@ Group.activeFile = traces/Baseline-Active_File.txt
 #Group.activeFile = traces/Trace-02-12-Synthetic-Active_File.txt
 #--------------------------------------------------------------------------------------------------
 #Group.router = ConnectionsOnlyRouter
-Group.router = TVSPRouter
+Group.router = TVFPRouter
 #Group.router = FirstContactRouter_CUSTOM
 #Group.router = EpidemicRouter_CUSTOM
 #Group.router = SprayAndWaitRouter_CUSTOM

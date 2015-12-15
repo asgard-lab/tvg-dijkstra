@@ -4,7 +4,7 @@
 
 - Só existe uma única instâncai da mensagem na simulação, e dependendo do roteador, pode ou não ser copiada
 - Sempre 20000 segundos de simulação
-- Detalhe importante: Para o TheONE, medidas de kilo é sempre 1000, não tem a distinção de kilo sendo 1000 para largura de banda, e 1024 para armazenamento, é sempre 1000
+- Detalhe importante: Para o ONE, medidas de kilo é sempre 1000, não tem a distinção de kilo sendo 1000 para largura de banda, e 1024 para armazenamento, é sempre 1000
 - A interface de rede de cada nó tem taxa de transmissão como 0.625MBps = 625KBps = 5Mbps
 - O tamanho da mensagem no External Event Generator é medida em bytes, e se estou querendo uma mensagem de 128KB, ou seja, 128000Bytes (de acordo com a gambiarra do TheONE), então devo por 128000
 - O range de cada inteface é 250m (metros).
@@ -18,16 +18,16 @@
 ***********
 Origem: n79
 Destino: n83
---- TVSP ---
+--- TVFP ---
 Processed 5121KB out of 7373KB (69%)
-The estimated shortest path found by TVSP is: n79 n22 n19 n83 
+The estimated shortest path found by TVFP is: n79 n22 n19 n83 
 M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.6000000000535 seconds (Hop count: 1 / Transmission time: 0.3000000000000682 seconds)
 M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.9999999999604 seconds (Hop count: 2 / Transmission time: 0.29999999999972715 seconds)
 M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at time 2211.799999999084 seconds (Hop count: 3 / Transmission time: 0.29999999999972715 seconds)
 M1 arrived at DESTINATION n83 at time 2211.799999999084 seconds
 TOTAL HOPS: 3
 TOTAL COPIES: 0
-Notas: Aqui o TVSP, obtendo o caminho que leve a mensagem ao destino o MAIS CEDO possível como sempre, não importa quantos HOPS gaste, mas garantindo que eu chego mais cedo.
+Notas: Aqui o TVFP, obtendo o caminho que leve a mensagem ao destino o MAIS CEDO possível como sempre, não importa quantos HOPS gaste, mas garantindo que eu chego mais cedo.
 
 
 --- First Contact ---
@@ -39,7 +39,7 @@ M1 from n19 started transfering at 2211.499999999084 seconds, arrived at n83 at 
 M1 arrived at DESTINATION n83 at time 2211.799999999084 seconds
 TOTAL HOPS: 4
 TOTAL COPIES: 0
-Notas: No First Contact custou 4 hops até a chegada, enquanto no TVSP 3 hops. Logo o TVSP tem uma melhoria de 25% em relação à quantidade de hops necessária para levar a mensage até o destino, no caso, gastando 1 hop a menos. Notamos que o caminho percorrido pelo First Contact router é muito parecido com o feito pelo TVSP até o destino n83. A diferença é que, dado pela política gulosa do First Contact, ele envia a mensagem direto pro n43, que daí depois chegará ao n22, ao passo que com o TVSP n79 já segura a mensagem um pouco e espera até se conectar com n22.
+Notas: No First Contact custou 4 hops até a chegada, enquanto no TVFP 3 hops. Logo o TVFP tem uma melhoria de 25% em relação à quantidade de hops necessária para levar a mensage até o destino, no caso, gastando 1 hop a menos. Notamos que o caminho percorrido pelo First Contact router é muito parecido com o feito pelo TVFP até o destino n83. A diferença é que, dado pela política gulosa do First Contact, ele envia a mensagem direto pro n43, que daí depois chegará ao n22, ao passo que com o TVFP n79 já segura a mensagem um pouco e espera até se conectar com n22.
 
 
 --- Epidemic ---
@@ -63,8 +63,8 @@ M1 from n37 started transfering at 11360.300000023797 seconds, arrived at n95 at
 M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 at time 11610.800000024708 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
 TOTAL HOPS: 3 até o destino + 13 hops adicionais gastos deixando cópias inundarem a mensagem até ninguem mais conseguir se conectar com ninguem.
 TOTAL COPIES: 3 cópias até p destino + 13 cópias adicionais.
-Notas: Aqui nota-se que o Epidemic alcançou o nó destino, no caso n83, com o mesmo número de hops que o TVSP, mas precisou gerar 3 cópias. Neste caso vemos claramente que o desempenho do TVSP é melhor, no sentido que não precisou utilizar de cópias para ampliar as possibilidades de contatos.
-É interessante notar que eventualmente o Epidemic acaba percorrendo o mesmo caminho percorrido pelo TVSP, isso pois ainda que o nó n79 faça uma cópia da mensagem inicialmente para n43, ele logo depois se conectará com n22, que seria o mesmo que o TVSP fez, segurando a mensagem ao invés de passá-la primeiro para o n43. O overhead é menor.
+Notas: Aqui nota-se que o Epidemic alcançou o nó destino, no caso n83, com o mesmo número de hops que o TVFP, mas precisou gerar 3 cópias. Neste caso vemos claramente que o desempenho do TVFP é melhor, no sentido que não precisou utilizar de cópias para ampliar as possibilidades de contatos.
+É interessante notar que eventualmente o Epidemic acaba percorrendo o mesmo caminho percorrido pelo TVFP, isso pois ainda que o nó n79 faça uma cópia da mensagem inicialmente para n43, ele logo depois se conectará com n22, que seria o mesmo que o TVFP fez, segurando a mensagem ao invés de passá-la primeiro para o n43. O overhead é menor.
 
 
 --- Spray and Wait (Binário / Max 6 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
@@ -113,9 +113,9 @@ n89: 1 cópia restante
 ***********
 Origem: n79
 Destino: n117
---- TVSP ---
+--- TVFP ---
 Processed 5121KB out of 7373KB (69%)
-The estimated shortest path found by TVSP is: n79 n22 n19 n106 n117 
+The estimated shortest path found by TVFP is: n79 n22 n19 n106 n117 
 M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.6000000000535 seconds (Hop count: 1 / Transmission time: 0.3000000000000682 seconds)
 M1 from n22 started transfering at 1247.6999999999607 seconds, arrived at n19 at time 1247.9999999999604 seconds (Hop count: 2 / Transmission time: 0.29999999999972715 seconds)
 M1 from n19 started transfering at 2246.1999999990526 seconds, arrived at n106 at time 2246.4999999990523 seconds (Hop count: 3 / Transmission time: 0.29999999999972715 seconds)
@@ -137,7 +137,7 @@ M1 from n106 started transfering at 2706.9999999986335 seconds, arrived at n117 
 M1 arrived at DESTINATION n117 at time 2707.299999998633 seconds
 TOTAL HOPS: 6
 TOTAL COPIES: 0
-Notas: Envio normal. Chegou no mesmo tempo que o TVSP, mas perceba que o First Contact foi usando a política descontrolada dele de enviar para o primeiro cara que aparecer e se conectar. No caso, de acordo com a ordem do TVG, o primeiro par de nós a se conectar, aos 81.7 segundos, é o par n79-n43, fazendo o restante do caminho, similar ao TVSP (n22 -> n19 -> n83 -> n106 -> n117), portanto a única diferença é que n79 até chegar em n22 teve que passar por n43, custando um hop a mais, ao invés de esperar. Neste caso a pressa em ir pegando nós fez ter que gastar mais um hop. Um leve aumento de overhead.
+Notas: Envio normal. Chegou no mesmo tempo que o TVFP, mas perceba que o First Contact foi usando a política descontrolada dele de enviar para o primeiro cara que aparecer e se conectar. No caso, de acordo com a ordem do TVG, o primeiro par de nós a se conectar, aos 81.7 segundos, é o par n79-n43, fazendo o restante do caminho, similar ao TVFP (n22 -> n19 -> n83 -> n106 -> n117), portanto a única diferença é que n79 até chegar em n22 teve que passar por n43, custando um hop a mais, ao invés de esperar. Neste caso a pressa em ir pegando nós fez ter que gastar mais um hop. Um leve aumento de overhead.
 
 
 --- Epidemic ---
@@ -162,7 +162,7 @@ M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 a
 TOTAL HOPS: 4 até o destino + 12 hops adicionais feitos até não conseguir mais se conectar com ninguem
 TOTAL COPIES: 4 cópias até o destino + 12 outras cópias
 Notas: Aqui é feita a política tradicional do Epidemic, sai mandando cópia da mensagem pros primeiros nós que conectar. Sendo assim, ele vai seguindo a ordem de conexão capturada pelo TVG. começando sempre primeiro pelo n79 até o n43 e depois n79 para n22, e assim por diante.
-Note que neste processo de cópias o Epidemic chegou ao destino com apenas 4 hops, mas ao custo de produzir 4 cópias da mensagem, é o mesmo tempo produzido pelo TVSP para este TVG, e este nó origem e destino. Percebe-se que o Epidemic conseguiu fazer a mensagem chegar no tempo mais cedo possível naquele nó destino n117, ou seja, 2707.0999999986334 segundos... Reduzindo um único hop, ao custo de ter que fazer 4 cópias da mensagem. Além do overhead de envio é claro, que é menor (menos hops), porém vemos que essa melhoria que o Epidemic tem não é tão significativa pelo preço que teve que pagar. É cópia demais pra poder tirar 1 hop! Além disso, o Epidemic continuou tentando propagar cópias das mensagens além do destino. Mas a partir de um ponto, nenhum nó com cópia para mandar conseguiu se conectar com ninguém, segundo o previsto pelo TVG. Neste caso vemos que o desempenho do TVSP é melhor. Pois ele não faz uma única cópia e só teve que gastar 1 hop a mais.
+Note que neste processo de cópias o Epidemic chegou ao destino com apenas 4 hops, mas ao custo de produzir 4 cópias da mensagem, é o mesmo tempo produzido pelo TVFP para este TVG, e este nó origem e destino. Percebe-se que o Epidemic conseguiu fazer a mensagem chegar no tempo mais cedo possível naquele nó destino n117, ou seja, 2707.0999999986334 segundos... Reduzindo um único hop, ao custo de ter que fazer 4 cópias da mensagem. Além do overhead de envio é claro, que é menor (menos hops), porém vemos que essa melhoria que o Epidemic tem não é tão significativa pelo preço que teve que pagar. É cópia demais pra poder tirar 1 hop! Além disso, o Epidemic continuou tentando propagar cópias das mensagens além do destino. Mas a partir de um ponto, nenhum nó com cópia para mandar conseguiu se conectar com ninguém, segundo o previsto pelo TVG. Neste caso vemos que o desempenho do TVFP é melhor. Pois ele não faz uma única cópia e só teve que gastar 1 hop a mais.
 
 
 --- Spray and Wait (Binário / Max 18 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
@@ -180,7 +180,7 @@ M1 arrived at DESTINATION n117 at time 2707.299999998633 seconds
 M1 from n43 started transfering at 3793.699999997645 seconds, arrived at n7 at time 3793.999999997645 seconds (Hop count: 2 / Transmission time: 0.29999999999972715 seconds)
 TOTAL HOPS: 5 até o destino + 5 hops adicionais feitos até não conseguir mais se conectar com ninguem
 TOTAL COPIES: 5 até o destino + 5 cópias adicionais
-Notas: Foi necessário um mínimo de limitante de 18 cópias par apermitir que atinja o destino no menor tempo possível segundo a previsao do TVG, e houve um total de 5 hops gastos, o que dá uma diferença de performance para o TVSP e o Epidemic.
+Notas: Foi necessário um mínimo de limitante de 18 cópias par apermitir que atinja o destino no menor tempo possível segundo a previsao do TVG, e houve um total de 5 hops gastos, o que dá uma diferença de performance para o TVFP e o Epidemic.
 1) n79: 18 cópias
 
 2) n79 se conecta com n43 (n79 envia uma cópia para n43, cópias 18/2)
@@ -230,9 +230,9 @@ n7: 2 cópias
 ***********
 Origem: n79
 Destino: n40
---- TVSP ---
+--- TVFP ---
 Processed 5121KB out of 7373KB (69%)
-The estimated shortest path found by TVSP is: n79 n43 n40 
+The estimated shortest path found by TVFP is: n79 n43 n40 
 M1 from n79 started transfering at 81.59999999999964 seconds, arrived at n43 at time 81.89999999999962 seconds (Hop count: 1 / Transmission time: 0.29999999999998295 seconds)
 M1 from n43 started transfering at 2399.699999998913 seconds, arrived at n40 at time 2399.9999999989127 seconds (Hop count: 2 / Transmission time: 0.29999999999972715 seconds)
 M1 arrived at DESTINATION n40 at time 2399.9999999989127 seconds
@@ -255,7 +255,7 @@ M1 from n25 started transfering at 3925.2999999975254 seconds, arrived at n40 at
 M1 arrived at DESTINATION n40 at time 3925.599999997525 seconds
 TOTAL HOPS: 9
 TOTAL COPIES: 0
-Notas: Bom, o de sempre, o TVSP segurou a onda ao invés de mandar pro primeiro zé que aparece, ao contrário do First Contact, que mandou pros primeiros que via pela frente, resultando na mensagem se perdendo no caminho. Isso é similar a você estar num engarrafamento, irritado pra caralho, e acha que entrando numa rua paralela pra desviar o trânsito vai adiantar algo, quando na verdade deveria ficar quieto ali esperando.
+Notas: Bom, o de sempre, o TVFP segurou a onda ao invés de mandar pro primeiro zé que aparece, ao contrário do First Contact, que mandou pros primeiros que via pela frente, resultando na mensagem se perdendo no caminho. Isso é similar a você estar num engarrafamento, irritado pra caralho, e acha que entrando numa rua paralela pra desviar o trânsito vai adiantar algo, quando na verdade deveria ficar quieto ali esperando.
 
 
 --- Epidemic ---
@@ -279,7 +279,7 @@ M1 from n37 started transfering at 11360.300000023797 seconds, arrived at n95 at
 M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 at time 11610.800000024708 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
 TOTAL HOPS: 2 até o destino + um monete que saiu se alastrando até que ninguém mais consiga se conectar com ninguém
 TOTAL COPIES: 2 até o destino + Um monte que saiu se alastrando até ninguém mais conseguir se conectar com ninguém
-Notas: Comportamento idêntico ao TVSP, ocorre que chegou ao mesmo tempo que ele, mas justamente porqueo  n40 é um dos nós que você vai achar logo no começo da conexão, o TVSP só sabia iss ode antemão. Claro que Epidemic saiu mandando cópia adoidado, mas não é justo usar isso como comparação.
+Notas: Comportamento idêntico ao TVFP, ocorre que chegou ao mesmo tempo que ele, mas justamente porqueo  n40 é um dos nós que você vai achar logo no começo da conexão, o TVFP só sabia iss ode antemão. Claro que Epidemic saiu mandando cópia adoidado, mas não é justo usar isso como comparação.
 
 
 --- Spray and Wait (Binário / Max 2 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
@@ -289,7 +289,7 @@ M1 from n43 started transfering at 2399.699999998913 seconds, arrived at n40 at 
 M1 arrived at DESTINATION n40 at time 2399.9999999989127 seconds
 TOTAL HOPS: 2 até o destino
 TOTAL COPIES: 2 até o destino
-Notas: Comportamento idêntico ao TVSP, ocorre que chegou ao mesmo tempo que ele, mas justamente porqueo  n40 é um dos nós que você vai achar logo no começo da conexão, o TVSP só sabia iss ode antemão. Claro que Epidemic saiu mandando cópia adoidado, mas não é justo usar isso como comparação.
+Notas: Comportamento idêntico ao TVFP, ocorre que chegou ao mesmo tempo que ele, mas justamente porqueo  n40 é um dos nós que você vai achar logo no começo da conexão, o TVFP só sabia iss ode antemão. Claro que Epidemic saiu mandando cópia adoidado, mas não é justo usar isso como comparação.
 
 1) n79: 2 cópias
 
@@ -308,9 +308,9 @@ n43: 1 cópia
 ***********
 Origem: n79
 Destino: n30
---- TVSP ---
+--- TVFP ---
 Processed 5121KB out of 7373KB (69%)
-The estimated shortest path found by TVSP is: n79 n22 n37 n119 n30 
+The estimated shortest path found by TVFP is: n79 n22 n37 n119 n30 
 M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.6000000000535 seconds (Hop count: 1 / Transmission time: 0.3000000000000682 seconds)
 M1 from n22 started transfering at 7419.2000000094595 seconds, arrived at n37 at time 7419.500000009461 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
 M1 from n37 started transfering at 11127.800000022951 seconds, arrived at n119 at time 11128.100000022952 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
@@ -358,7 +358,7 @@ M1 from n37 started transfering at 11360.300000023797 seconds, arrived at n95 at
 M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 at time 11610.800000024708 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
 TOTAL HOPS: 4 hops até o destino + 12 hops adicionais que foram feitos até não conseguir conectar com ninguém.
 TOTAL COPIES: 4 até o destino + 12 cópias adicionais que zanzaram
-Notas: Chegou na mesma performance que o tvsp, o  epidemic é o único que chega no tempo mais cedo possível, assim como o epidemic, devido a sua política louca de sair infectando geral.
+Notas: Chegou na mesma performance que o TVFP, o  epidemic é o único que chega no tempo mais cedo possível, assim como o epidemic, devido a sua política louca de sair infectando geral.
 
 
 --- Spray and Wait (Binário / Max 46 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
@@ -450,9 +450,9 @@ n30: 1 cópia
 ***********
 Origem: n79
 Destino: n95
---- TVSP ---
+--- TVFP ---
 Processed 5121KB out of 7373KB (69%)
-The estimated shortest path found by TVSP is: n79 n22 n37 n95 
+The estimated shortest path found by TVFP is: n79 n22 n37 n95 
 M1 from n79 started transfering at 536.3000000000534 seconds, arrived at n22 at time 536.6000000000535 seconds (Hop count: 1 / Transmission time: 0.3000000000000682 seconds)
 M1 from n22 started transfering at 7419.2000000094595 seconds, arrived at n37 at time 7419.500000009461 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
 M1 from n37 started transfering at 11360.300000023797 seconds, arrived at n95 at time 11360.600000023798 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
@@ -499,7 +499,7 @@ M1 arrived at DESTINATION n95 at time 11360.600000023798 seconds
 M1 from n37 started transfering at 11610.500000024707 seconds, arrived at n113 at time 11610.800000024708 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
 TOTAL HOPS: 3 até o destino + 13 hops adicionais
 TOTAL COPIES: 3 até o destino + 13 cópias adicionais
-Notas: Como esperado chegou até o destino no mesmo tempo do TVSP e o mesmo tanto de hops.
+Notas: Como esperado chegou até o destino no mesmo tempo do TVFP e o mesmo tanto de hops.
 
 
 --- Spray and Wait (Binário / Max 30 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
