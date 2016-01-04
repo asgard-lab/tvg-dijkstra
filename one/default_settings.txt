@@ -1,0 +1,72 @@
+#### SCENARIO NAME - CENÁRIO BASELINE USADO PRA TUDO ####
+Scenario.name = Baseline-%%Scenario.endTime%%
+
+#### SCENARIO NAME - CENÁRIOS RELATIVOS AO TRACE 02-12 ####
+#Scenario.name = Trace-02-12-%%Scenario.endTime%%
+#Scenario.name = Trace-02-12-%%Scenario.endTime%%-Synthetic
+
+Scenario.simulateConnections = true
+Scenario.updateInterval = 0.1
+Scenario.nrofHostGroups = 1
+Scenario.endTime = 20000.0
+Group.movementModel = ExternalPathMovement
+#--------------------------------------------------------------------------------------------------
+#### NRO_HOSTS + TRACE_FILES - CENÁRIO BASELINE USADO PRA TUDO ####
+Group.nrofHosts = 1160
+Group.traceFile = traces/Baseline-Path_File.txt
+Group.activeFile = traces/Baseline-Active_File.txt
+#--------------------------------------------------------------------------------------------------
+#### NRO_HOSTS + TRACE_FILES - CENÁRIO TRACE-02-12 / VIRTUAL_TRACE ####
+#Group.nrofHosts = 382
+
+#Group.traceFile = traces/Trace-02-12-Path_File.txt
+#Group.activeFile = traces/Trace-02-12-Active_File.txt
+
+#Group.traceFile = traces/Trace-02-12-Synthetic-Path_File.txt
+#Group.activeFile = traces/Trace-02-12-Synthetic-Active_File.txt
+#--------------------------------------------------------------------------------------------------
+#Group.router = ConnectionsOnlyRouter
+Group.router = TVFPRouter
+#Group.router = FirstContactRouter_CUSTOM
+#Group.router = EpidemicRouter_CUSTOM
+#Group.router = SprayAndWaitRouter_CUSTOM
+
+highspeedInterface.type = SimpleBroadcastInterface
+
+#0.625MBps = 625kBps = 625000Bps = 5Mbps
+highspeedInterface.transmitSpeed = 0.625M
+highspeedInterface.transmitRange = 250
+Group.bufferSize = 2G
+Group.waitTime = 0, 50
+Group.nrofInterfaces = 1
+Group.interface1 = highspeedInterface
+Group.msgTtl = 300
+Group.groupID = n
+Events.nrof = 1
+#Events1.class = MessageEventGenerator
+Events1.class = ExternalEventGenerator
+Events1.filePath = tvg/ExternalMessageEvent.txt
+
+## Default settings for some routers settings
+ProphetRouter.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+MovementModel.rngSeed = 1
+MovementModel.worldSize = 200000,200000
+MovementModel.warmup = 1000
+
+MapBasedMovement.nrofMapFiles = 0
+Report.nrofReports = 1
+Report.warmup = 0
+Report.reportDir = reports/
+Report.granularity = 60
+Report.report1 = EventLogReport
+
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+GUI.UnderlayImage.fileName = data/mapa_BAW.png
+GUI.UnderlayImage.offset = -10, -15
+GUI.UnderlayImage.scale = 24.8
+GUI.UnderlayImage.rotate = 0
+GUI.EventLogPanel.nrofEvents = 1000
