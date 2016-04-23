@@ -1,0 +1,33 @@
+*******************************************
+* Médias da análise de desempenho do TVFP *
+*******************************************
+
+*** Cenário 1 - de n30 para n37 ***
+Tempo de chegada: 11152.8 segundos
+Tempo de viagem: 3157.8 segundos
+Total de hops: 2
+
+*** Cenário 2 - de n113 para n95 ***
+Tempo de chegada: 11377.6 segundos
+Tempo de viagem: 3389.6 segundos
+Total de hops: 3
+
+*** Cenário 3 - de n153 para n12 ***
+Tempo de chegada: 22645.7 segundos
+Tempo de viagem: 2331.4 segundos
+Total de hops: 4
+
+*** Cenário 4 - de n156 para n360 ***
+Tempo de chegada: 21121 segundos
+Tempo de viagem: 1343.0 segundos
+Total de hops: 4
+
+*** Cenário 5 - de n128 para n607 ***
+Tempo de chegada: 22954.4 segundos
+Tempo de viagem: 4312.6 segundos
+Total de hops: 4
+
+*** Médias (Cenário 1, 2, 3, 4 e 5) ***
+Média do tempo de chegada: (20314.3 + 11377.6 + 22645.7 + 21121 + 22954.4)/5 = 19682.6 segundos
+Média do tempo de viagem: (3157.8 + 3389.6 + 2331.4 + 1343.0 + 4312.6)/5 = 2906.88 segundos
+Média do total de hops: (2 + 3 + 4 + 4 + 4)/5 = 2.83 hops

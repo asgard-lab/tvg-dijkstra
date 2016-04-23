@@ -1,0 +1,804 @@
+**************************************************************
+* Configurações gerais para todas as simulações - 04/11/2015 *
+**************************************************************
+
+- Só existe uma única instâncai da mensagem na simulação, e dependendo do roteador, pode ou não ser copiada
+- Sempre 23250 segundos de simulação (Mais que isso a simulação começa a travar na geração do TVG em formato graphviz)
+- Detalhe importante: Para o ONE, medidas de kilo é sempre 1000, não tem a distinção de kilo sendo 1000 para largura de banda, e 1024 para armazenamento, é sempre 1000
+- A interface de rede de cada nó tem taxa de transmissão como 0.625MBps = 625KBps = 5Mbps
+- O tamanho da mensagem no External Event Generator é medida em bytes, e se estou querendo uma mensagem de 128KB, ou seja, 128000Bytes (de acordo com a gambiarra do TheONE), então devo por 128000
+- O range de cada inteface é 50m (metros).
+- Utilizou o TVG-NewBaseline-23250.dot, que refere-se ao eventlog NewBaseline-23500.0_EventLogReport.txt, advindo do Baseline trace que
+  Lourdes fez (Traces do crawdad pegando da 00:00 até as 19:00 do dia 31/10)
+- Vamos usar mensagens com 128KB de tamanho pra ficar tal qual o trabalho da Lourdes.
+- Seta um valor de ttl pra mensagem maior que 300 pq ela se inicia desde o tempo 1, e até chegar nos nós mais longes la do cluster
+  ela acaba dropando pq provavelmente chega no 300.
+  Por exemplo, o nó 74 começa com a mensagem no começo da simulaçao mas so vai se mover com o no 174 la pelo 19000segundos, ate ai a mensagem ja deve
+  ter caido... ---> CONCLUIDO, TEM Q SETAR UM TTL GIGANTESCO PRA DAR CERTO!!!!!!! No caso o tempo de TTL escolhido é 400, que dá 24000
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+*****************************************************************
+* Cenário 1 - Cenário em que o First Contact conseguiu entregar *
+*****************************************************************
+Cluster de nós utilizado: 2
+Origem: n30
+Destino: n37
+--- TVFP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated fastest path found by TVFP is: n30 n119 n37.
+M1 from n30 started transfering at 7995.000000011554 seconds, arrived at n119 at time 7995.300000011555 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 11152.500000023041 seconds, arrived at n37 at time 11152.800000023042 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n37 at time 11152.800000023042 seconds
+TOTAL HOPS: 2 até o destino
+TOTAL MESSAGES GENERATED: 1
+Notas: Entregou ao destino à tempo.
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n30 started transfering at 7995.000000011554 seconds, arrived at n119 at time 7995.300000011555 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 7995.400000011556 seconds, arrived at n113 at time 7995.700000011557 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n113 started transfering at 11642.000000024822 seconds, arrived at n37 at time 11642.300000024823 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n37 at time 11642.300000024823 seconds
+TOTAL HOPS: 3 até o destino
+TOTAL MESSAGES GENERATED: 1
+Notas: Entregou ao destino à tempo, porém mais tarde que o TVFP, veja que ele saiu escolhendo o primeiro que apareceu na frente.
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n30 started transfering at 7995.000000011554 seconds, arrived at n119 at time 7995.300000011555 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n30 started transfering at 7995.300000011555 seconds, arrived at n113 at time 7995.600000011556 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 11152.500000023041 seconds, arrived at n37 at time 11152.800000023042 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n37 at time 11152.800000023042 seconds
+M1 from n30 started transfering at 11469.800000024195 seconds, arrived at n95 at time 11470.100000024197 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+TOTAL HOPS: 2 até o destino
+TOTAL MESSAGES GENERATED: 1 até o destino + 4 que se espalharam
+Notas: Entregou ao destino à tempo.
+
+
+--- Spray and Wait (Binário / Max 2 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n30 started transfering at 7995.000000011554 seconds, arrived at n119 at time 7995.300000011555 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 11152.500000023041 seconds, arrived at n37 at time 11152.800000023042 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n37 at time 11152.800000023042 seconds
+TOTAL HOPS: 2 até o destino
+TOTAL MESSAGES GENERATED: 1 até o destino + 2 que se espalharam, sendo que uma das que se espalhou chegou por direct delivery
+Notas: Entregou ao destino à tempo.
+
+Entendendo a disseminação pelo SaW Binário neste caso:
+1) 30 não está conectado com ninguém no começo da simulação 
+n30: 2 cópias
+
+2) n30 se conecta com n119 (n30 envia uma cópia da sua mensagem para n119 --> 2/2 = 1)
+n30: 1 cópia
+n119: 1 cópia
+
+3) n119 se conecta com o nó destino n37 (n119, que só tem uma cópia da mensagem em seu L, envia a mensagem para n37 por direct delivery)
+n119: 1 cópia
+n37: 1 cópia
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+****************************************************************
+* Cenário 2 - Cenário em que o First Contact consegue entregar *
+****************************************************************
+Cluster de nós utilizado: 2
+Origem: n113
+Destino: n95
+--- TVFP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated fastest path found by TVFP is: n113 n119 n37 n95.
+M1 from n113 started transfering at 7988.000000011529 seconds, arrived at n119 at time 7988.30000001153 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 11152.500000023041 seconds, arrived at n37 at time 11152.800000023042 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n37 started transfering at 11377.300000023859 seconds, arrived at n95 at time 11377.60000002386 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n95 at time 11377.60000002386 seconds
+TOTAL HOPS: 3 até o destino
+TOTAL MESSAGES GENERATED: 1
+Notas: Entregou ao destino à tempo.
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n113 started transfering at 7988.000000011529 seconds, arrived at n119 at time 7988.30000001153 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 7995.100000011555 seconds, arrived at n30 at time 7995.400000011556 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n30 started transfering at 11469.800000024195 seconds, arrived at n95 at time 11470.100000024197 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n95 at time 11470.100000024197 seconds
+TOTAL HOPS: 3 até o destino
+TOTAL MESSAGES GENERATED: 1
+Notas: Entregou ao destino à tempo porém mais tarde que o TVFP, ocorre que até o n119, ambos tomam o mesmo caminho, acontece que
+o TVFP segue pelo n37 (Espera um pouquinho mais pra chegar nele), enquanto que o First Contact optou por ir pro nó que conecta
+mais rápido com o n119, no caso n30. Veja que essa heurística gulosa de não esperar acarretou em n30 chegar ao destino n95
+mais tarde (11470 segundos) que no caso do TVFP, que n37 conectou com n95 mais rápido (11377.6 segundos). Além disso percebemos
+que o cluster de nós que o First Contact conseguiu entregar é um cluster pequeno, ainda que mais tarde, o que faz sentido, pois em um cluster
+gigante de nós existe a possibilidade de conexões desnecessárias ocorrerem, e o nó chegar MAIS tarde ainda ao destino, ou
+até mesmo, não conseguir chegar, já que existem muito mais nós. No caso deste cluster, é um cluster pequeno de nós com várias
+conexões com o nó destino, permitindo cmainhos alternativos, como foi o caso do First Contact.
+Em cluster maiores, podem existir diversos caminhos que sequer levam ao nó destino...
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n113 started transfering at 7988.000000011529 seconds, arrived at n119 at time 7988.30000001153 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 7995.100000011555 seconds, arrived at n30 at time 7995.400000011556 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 11152.500000023041 seconds, arrived at n37 at time 11152.800000023042 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n37 started transfering at 11377.300000023859 seconds, arrived at n95 at time 11377.60000002386 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n95 at time 11377.60000002386 seconds
+TOTAL HOPS: 3 até o destino
+TOTAL MESSAGES GENERATED: 1 até o destino + 4 que se espalharam
+Notas: Entregou ao destino à tempo.
+
+
+--- Spray and Wait (Binário / Max 7 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n113 started transfering at 7988.000000011529 seconds, arrived at n119 at time 7988.30000001153 seconds (Hop count: 1 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 7995.100000011555 seconds, arrived at n30 at time 7995.400000011556 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n119 started transfering at 11152.500000023041 seconds, arrived at n37 at time 11152.800000023042 seconds (Hop count: 2 / Transmission time: 0.3000000000010914 seconds)
+M1 from n37 started transfering at 11377.300000023859 seconds, arrived at n95 at time 11377.60000002386 seconds (Hop count: 3 / Transmission time: 0.3000000000010914 seconds)
+M1 arrived at DESTINATION n95 at time 11377.60000002386 seconds
+TOTAL HOPS: 3 até o destino
+TOTAL MESSAGES GENERATED: 1 até o destino + 4 que se espalharam
+Notas: Entregou ao destino à tempo.
+
+Entendendo a disseminação pelo SaW Binário neste caso:
+1) n113 não está conectado com ninguém no começo da simulação 
+n113: 7 cópias
+
+2) n113 se conecta com n119 (n113 envia uma cópia da sua mensagem para n119 --> 7/2 = 3,5 = 4)
+n113: 4 cópias
+n119: 4 cópias
+
+3) n119 se conecta com n30 (n113 envia uma cópia da sua mensagem para n30 --> 4/2 = 2)
+n119: 2 cópias
+n30: 2 cópias
+
+4) n119 se conecta com n37 (n119 envia uma cópia da sua mensagem para n37 --> 2/2 = 1)
+n119: 1 cópia
+n37: 1 cópia
+
+5) n37 se conecta com o nó destino n95 (n37, que só tem uma cópia da mensagem em seu L, envia a mensagem para n95 por direct delivery)
+n37: 1 cópia
+n95: 1 cópia
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+*********************************************************************
+* Cenário 3 - Cenário em que o First Contact não conseguiu entregar *
+*********************************************************************
+Cluster de nós utilizado: 3
+Origem: n153
+Destino: n12
+--- TVFP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated fastest path found by TVFP is: n153 n333 n120 n261 n12.
+M1 from n153 started transfering at 20314.29999998488 seconds, arrived at n333 at time 20314.599999984875 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20454.59999998284 seconds, arrived at n120 at time 20454.899999982834 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21791.599999963382 seconds, arrived at n261 at time 21791.899999963378 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 22645.399999950958 seconds, arrived at n12 at time 22645.699999950953 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n12 at time 22645.699999950953 seconds
+TOTAL HOPS: 4
+TOTAL MESSAGES GENERATED: 0
+Notas: Transferiu como esperado, chegando lá no tempo mais cedo possível kkkk...
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n153 started transfering at 19135.80000000203 seconds, arrived at n196 at time 19136.100000002025 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n196 started transfering at 21100.299999973442 seconds, arrived at n322 at time 21100.599999973438 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n322 started transfering at 21215.99999997176 seconds, arrived at n423 at time 21216.299999971754 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21216.399999971753 seconds, arrived at n329 at time 21216.69999997175 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 21543.69999996699 seconds, arrived at n207 at time 21543.999999966985 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21678.599999965027 seconds, arrived at n166 at time 21678.899999965022 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n166 started transfering at 22631.59999995116 seconds, arrived at n353 at time 22631.899999951154 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n353 started transfering at 22893.199999947352 seconds, arrived at n243 at time 22893.499999947348 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n243 started transfering at 22910.799999947096 seconds, arrived at n415 at time 22911.09999994709 seconds (Hop count: 9 / Transmission time: 0.2999999999956344 seconds)
+M1 from n415 started transfering at 22926.89999994686 seconds, arrived at n544 at time 22927.199999946857 seconds (Hop count: 10 / Transmission time: 0.2999999999956344 seconds)
+M1 from n544 started transfering at 22974.899999946163 seconds, arrived at n156 at time 22975.19999994616 seconds (Hop count: 11 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 23154.39999994355 seconds, arrived at n408 at time 23154.699999943547 seconds (Hop count: 12 / Transmission time: 0.2999999999956344 seconds)
+M1 from n408 started transfering at 23189.099999943046 seconds, arrived at n633 at time 23189.39999994304 seconds (Hop count: 13 / Transmission time: 0.2999999999956344 seconds)
+M1 from n633 started transfering at 23203.599999942835 seconds, arrived at n261 at time 23203.89999994283 seconds (Hop count: 14 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 23247.2999999422 seconds, arrived at n307 at time 23247.599999942195 seconds (Hop count: 15 / Transmission time: 0.2999999999956344 seconds)
+M1 from n307 started transfering at 23247.699999942193 seconds, arrived at n332 at time 23247.99999994219 seconds (Hop count: 16 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: 16
+TOTAL MESSAGES GENERATED: 0
+Notas: FirstContact foi apressado, se deu mal, não levando a mensagem até o destino.
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n153 started transfering at 19135.80000000203 seconds, arrived at n196 at time 19136.100000002025 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 19929.899999990474 seconds, arrived at n226 at time 19930.19999999047 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20064.499999988515 seconds, arrived at n252 at time 20064.79999998851 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20098.699999988017 seconds, arrived at n238 at time 20098.999999988013 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20314.29999998488 seconds, arrived at n333 at time 20314.599999984875 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20454.59999998284 seconds, arrived at n120 at time 20454.899999982834 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20460.799999982748 seconds, arrived at n230 at time 20461.099999982744 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20495.499999982243 seconds, arrived at n158 at time 20495.79999998224 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20554.399999981386 seconds, arrived at n146 at time 20554.69999998138 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20561.299999981286 seconds, arrived at n137 at time 20561.59999998128 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20658.199999979875 seconds, arrived at n373 at time 20658.49999997987 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20709.699999979126 seconds, arrived at n208 at time 20709.99999997912 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20728.399999978854 seconds, arrived at n180 at time 20728.69999997885 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20762.499999978358 seconds, arrived at n178 at time 20762.799999978353 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 21061.699999974004 seconds, arrived at n210 at time 21061.999999974 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n196 started transfering at 21100.299999973442 seconds, arrived at n322 at time 21100.599999973438 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n373 started transfering at 21102.59999997341 seconds, arrived at n185 at time 21102.899999973404 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21110.0999999733 seconds, arrived at n223 at time 21110.399999973295 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 21120.699999973145 seconds, arrived at n360 at time 21120.99999997314 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n252 started transfering at 21132.299999972976 seconds, arrived at n182 at time 21132.599999972972 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21164.899999972502 seconds, arrived at n150 at time 21165.199999972498 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n322 started transfering at 21215.99999997176 seconds, arrived at n423 at time 21216.299999971754 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21216.399999971753 seconds, arrived at n329 at time 21216.69999997175 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n360 started transfering at 21261.599999971095 seconds, arrived at n372 at time 21261.89999997109 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 21281.399999970807 seconds, arrived at n429 at time 21281.699999970802 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21320.099999970244 seconds, arrived at n359 at time 21320.39999997024 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21361.699999969638 seconds, arrived at n207 at time 21361.999999969634 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n137 started transfering at 21367.899999969548 seconds, arrived at n390 at time 21368.199999969544 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 21374.899999969446 seconds, arrived at n217 at time 21375.19999996944 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 21414.899999968864 seconds, arrived at n288 at time 21415.19999996886 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21599.599999966176 seconds, arrived at n42 at time 21599.899999966172 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 21637.699999965622 seconds, arrived at n58 at time 21637.999999965617 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21678.599999965027 seconds, arrived at n166 at time 21678.899999965022 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 21745.09999996406 seconds, arrived at n440 at time 21745.399999964055 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 21745.499999964053 seconds, arrived at n460 at time 21745.79999996405 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21791.599999963382 seconds, arrived at n261 at time 21791.899999963378 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 21812.29999996308 seconds, arrived at n244 at time 21812.599999963077 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n217 started transfering at 21821.99999996294 seconds, arrived at n367 at time 21822.299999962936 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21831.799999962797 seconds, arrived at n161 at time 21832.099999962793 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 21879.09999996211 seconds, arrived at n205 at time 21879.399999962105 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n390 started transfering at 21887.39999996199 seconds, arrived at n408 at time 21887.699999961984 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21928.299999961393 seconds, arrived at n134 at time 21928.59999996139 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n42 started transfering at 21928.999999961383 seconds, arrived at n343 at time 21929.29999996138 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n373 started transfering at 21966.29999996084 seconds, arrived at n78 at time 21966.599999960836 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 21971.09999996077 seconds, arrived at n405 at time 21971.399999960766 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n244 started transfering at 22001.599999960326 seconds, arrived at n213 at time 22001.899999960322 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22008.29999996023 seconds, arrived at n468 at time 22008.599999960225 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 22031.999999959884 seconds, arrived at n320 at time 22032.29999995988 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n58 started transfering at 22064.199999959415 seconds, arrived at n193 at time 22064.49999995941 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 22096.399999958947 seconds, arrived at n473 at time 22096.699999958942 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n226 started transfering at 22097.199999958935 seconds, arrived at n152 at time 22097.49999995893 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n152 started transfering at 22097.49999995893 seconds, arrived at n432 at time 22097.799999958926 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22116.69999995865 seconds, arrived at n313 at time 22116.999999958647 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 22155.599999958085 seconds, arrived at n453 at time 22155.89999995808 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 22169.399999957885 seconds, arrived at n296 at time 22169.69999995788 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 22203.099999957394 seconds, arrived at n371 at time 22203.39999995739 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n193 started transfering at 22215.499999957214 seconds, arrived at n498 at time 22215.79999995721 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n208 started transfering at 22220.699999957138 seconds, arrived at n392 at time 22220.999999957134 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n58 started transfering at 22240.999999956843 seconds, arrived at n156 at time 22241.29999995684 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n42 started transfering at 22242.199999956825 seconds, arrived at n145 at time 22242.49999995682 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22247.099999956754 seconds, arrived at n263 at time 22247.39999995675 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 22247.39999995675 seconds, arrived at n388 at time 22247.699999956745 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22322.099999955662 seconds, arrived at n170 at time 22322.399999955658 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n343 started transfering at 22326.3999999556 seconds, arrived at n221 at time 22326.699999955596 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22330.299999955543 seconds, arrived at n353 at time 22330.59999995554 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 22342.29999995537 seconds, arrived at n336 at time 22342.599999955364 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n226 started transfering at 22369.69999995497 seconds, arrived at n334 at time 22369.999999954965 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n334 started transfering at 22370.99999995495 seconds, arrived at n328 at time 22371.299999954947 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n263 started transfering at 22401.8999999545 seconds, arrived at n181 at time 22402.199999954497 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n498 started transfering at 22402.499999954493 seconds, arrived at n203 at time 22402.799999954488 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n360 started transfering at 22408.299999954408 seconds, arrived at n319 at time 22408.599999954404 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 22422.6999999542 seconds, arrived at n274 at time 22422.999999954194 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22508.699999952947 seconds, arrived at n301 at time 22508.999999952943 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22516.09999995284 seconds, arrived at n465 at time 22516.399999952835 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n465 started transfering at 22516.399999952835 seconds, arrived at n63 at time 22516.69999995283 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22517.39999995282 seconds, arrived at n399 at time 22517.699999952816 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n221 started transfering at 22521.299999952764 seconds, arrived at n447 at time 22521.59999995276 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n181 started transfering at 22526.199999952692 seconds, arrived at n317 at time 22526.499999952688 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22526.199999952692 seconds, arrived at n544 at time 22526.499999952688 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n205 started transfering at 22580.5999999519 seconds, arrived at n243 at time 22580.899999951896 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n360 started transfering at 22600.299999951614 seconds, arrived at n131 at time 22600.59999995161 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n131 started transfering at 22604.69999995155 seconds, arrived at n232 at time 22604.999999951546 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22610.19999995147 seconds, arrived at n557 at time 22610.499999951466 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 22645.399999950958 seconds, arrived at n12 at time 22645.699999950953 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n12 at time 22645.699999950953 seconds
+M1 from n145 started transfering at 22649.899999950892 seconds, arrived at n489 at time 22650.199999950888 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22656.2999999508 seconds, arrived at n307 at time 22656.599999950795 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n161 started transfering at 22661.499999950724 seconds, arrived at n303 at time 22661.79999995072 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n447 started transfering at 22716.299999949926 seconds, arrived at n289 at time 22716.59999994992 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22729.599999949733 seconds, arrived at n247 at time 22729.89999994973 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n247 started transfering at 22729.999999949727 seconds, arrived at n216 at time 22730.299999949722 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 22749.59999994944 seconds, arrived at n66 at time 22749.899999949437 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22751.599999949412 seconds, arrived at n519 at time 22751.899999949408 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22754.899999949364 seconds, arrived at n416 at time 22755.19999994936 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n453 started transfering at 22772.199999949113 seconds, arrived at n67 at time 22772.49999994911 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22775.19999994907 seconds, arrived at n123 at time 22775.499999949065 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n123 started transfering at 22775.499999949065 seconds, arrived at n184 at time 22775.79999994906 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22782.299999948966 seconds, arrived at n476 at time 22782.59999994896 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n66 started transfering at 22816.099999948474 seconds, arrived at n18 at time 22816.39999994847 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22824.69999994835 seconds, arrived at n415 at time 22824.999999948344 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 22828.999999948286 seconds, arrived at n474 at time 22829.29999994828 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n152 started transfering at 22856.499999947886 seconds, arrived at n133 at time 22856.79999994788 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n213 started transfering at 22867.79999994772 seconds, arrived at n227 at time 22868.099999947717 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n18 started transfering at 22870.199999947687 seconds, arrived at n114 at time 22870.499999947682 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22876.79999994759 seconds, arrived at n332 at time 22877.099999947586 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n307 started transfering at 22890.999999947384 seconds, arrived at n163 at time 22891.29999994738 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n208 started transfering at 22952.39999994649 seconds, arrived at n483 at time 22952.699999946486 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n150 started transfering at 22955.79999994644 seconds, arrived at n349 at time 22956.099999946437 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n317 started transfering at 22958.199999946406 seconds, arrived at n159 at time 22958.4999999464 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22972.3999999462 seconds, arrived at n475 at time 22972.699999946195 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n181 started transfering at 22978.49999994611 seconds, arrived at n433 at time 22978.799999946106 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n18 started transfering at 23026.199999945416 seconds, arrived at n212 at time 23026.499999945412 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n328 started transfering at 23026.499999945412 seconds, arrived at n410 at time 23026.799999945408 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n63 started transfering at 23071.799999944753 seconds, arrived at n451 at time 23072.09999994475 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 23074.69999994471 seconds, arrived at n368 at time 23074.999999944706 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n159 started transfering at 23082.099999944603 seconds, arrived at n605 at time 23082.3999999446 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n230 started transfering at 23101.49999994432 seconds, arrived at n526 at time 23101.799999944316 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 23122.599999944014 seconds, arrived at n619 at time 23122.89999994401 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n213 started transfering at 23129.399999943915 seconds, arrived at n428 at time 23129.69999994391 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n288 started transfering at 23137.89999994379 seconds, arrived at n569 at time 23138.199999943787 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n114 started transfering at 23179.29999994319 seconds, arrived at n481 at time 23179.599999943184 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n408 started transfering at 23189.099999943046 seconds, arrived at n633 at time 23189.39999994304 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 23189.49999994304 seconds, arrived at n219 at time 23189.799999943036 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n18 started transfering at 23203.19999994284 seconds, arrived at n14 at time 23203.499999942836 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n131 started transfering at 23225.19999994252 seconds, arrived at n638 at time 23225.499999942516 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n349 started transfering at 23232.399999942416 seconds, arrived at n315 at time 23232.69999994241 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n519 started transfering at 23237.999999942334 seconds, arrived at n335 at time 23238.29999994233 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: 4 até o destino + um monte que saiu se alastrando até que ninguém mais consiga se conectar com ninguém
+TOTAL MESSAGES GENERATED: 4 até o destino + 122 Um monte que saiu se alastrando até ninguém mais conseguir se conectar com ninguém
+Notas: Comportamento idêntico ao TVFP, ocorre que chegou ao mesmo tempo que ele, mas justamente porqueo  n40 é um dos nós que você vai achar logo no começo da conexão, o TVFP só sabia iss ode antemão. Claro que Epidemic saiu mandando cópia adoidado, mas não é justo usar isso como comparação.
+
+
+--- Spray and Wait (Binário / Max 4048 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n153 started transfering at 19135.80000000203 seconds, arrived at n196 at time 19136.100000002025 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 19929.899999990474 seconds, arrived at n226 at time 19930.19999999047 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20064.499999988515 seconds, arrived at n252 at time 20064.79999998851 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20098.699999988017 seconds, arrived at n238 at time 20098.999999988013 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20314.29999998488 seconds, arrived at n333 at time 20314.599999984875 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20454.59999998284 seconds, arrived at n120 at time 20454.899999982834 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20460.799999982748 seconds, arrived at n230 at time 20461.099999982744 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20495.499999982243 seconds, arrived at n158 at time 20495.79999998224 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20554.399999981386 seconds, arrived at n146 at time 20554.69999998138 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 20561.299999981286 seconds, arrived at n137 at time 20561.59999998128 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20658.199999979875 seconds, arrived at n373 at time 20658.49999997987 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20709.699999979126 seconds, arrived at n208 at time 20709.99999997912 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20728.399999978854 seconds, arrived at n180 at time 20728.69999997885 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20762.499999978358 seconds, arrived at n178 at time 20762.799999978353 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 21061.699999974004 seconds, arrived at n210 at time 21061.999999974 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n196 started transfering at 21100.299999973442 seconds, arrived at n322 at time 21100.599999973438 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n373 started transfering at 21102.59999997341 seconds, arrived at n185 at time 21102.899999973404 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21110.0999999733 seconds, arrived at n223 at time 21110.399999973295 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 21120.699999973145 seconds, arrived at n360 at time 21120.99999997314 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n252 started transfering at 21132.299999972976 seconds, arrived at n182 at time 21132.599999972972 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21164.899999972502 seconds, arrived at n150 at time 21165.199999972498 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n322 started transfering at 21215.99999997176 seconds, arrived at n423 at time 21216.299999971754 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21216.399999971753 seconds, arrived at n329 at time 21216.69999997175 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n360 started transfering at 21261.599999971095 seconds, arrived at n372 at time 21261.89999997109 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 21281.399999970807 seconds, arrived at n429 at time 21281.699999970802 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21320.099999970244 seconds, arrived at n359 at time 21320.39999997024 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21361.699999969638 seconds, arrived at n207 at time 21361.999999969634 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n137 started transfering at 21367.899999969548 seconds, arrived at n390 at time 21368.199999969544 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 21374.899999969446 seconds, arrived at n217 at time 21375.19999996944 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21599.599999966176 seconds, arrived at n42 at time 21599.899999966172 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 21637.699999965622 seconds, arrived at n58 at time 21637.999999965617 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21678.599999965027 seconds, arrived at n166 at time 21678.899999965022 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 21745.09999996406 seconds, arrived at n440 at time 21745.399999964055 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 21745.499999964053 seconds, arrived at n460 at time 21745.79999996405 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21791.599999963382 seconds, arrived at n261 at time 21791.899999963378 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 21812.29999996308 seconds, arrived at n244 at time 21812.599999963077 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21831.799999962797 seconds, arrived at n161 at time 21832.099999962793 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 21879.09999996211 seconds, arrived at n205 at time 21879.399999962105 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n390 started transfering at 21887.39999996199 seconds, arrived at n408 at time 21887.699999961984 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n42 started transfering at 21928.999999961383 seconds, arrived at n343 at time 21929.29999996138 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n373 started transfering at 21966.29999996084 seconds, arrived at n78 at time 21966.599999960836 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22008.29999996023 seconds, arrived at n468 at time 22008.599999960225 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n58 started transfering at 22064.199999959415 seconds, arrived at n193 at time 22064.49999995941 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n226 started transfering at 22097.199999958935 seconds, arrived at n152 at time 22097.49999995893 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n152 started transfering at 22097.49999995893 seconds, arrived at n432 at time 22097.799999958926 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22116.69999995865 seconds, arrived at n313 at time 22116.999999958647 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n193 started transfering at 22147.5999999582 seconds, arrived at n213 at time 22147.899999958197 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 22169.399999957885 seconds, arrived at n296 at time 22169.69999995788 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n193 started transfering at 22215.499999957214 seconds, arrived at n498 at time 22215.79999995721 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n208 started transfering at 22220.699999957138 seconds, arrived at n392 at time 22220.999999957134 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n58 started transfering at 22240.999999956843 seconds, arrived at n156 at time 22241.29999995684 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n42 started transfering at 22242.199999956825 seconds, arrived at n145 at time 22242.49999995682 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 22247.39999995675 seconds, arrived at n388 at time 22247.699999956745 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n343 started transfering at 22326.3999999556 seconds, arrived at n221 at time 22326.699999955596 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22330.299999955543 seconds, arrived at n353 at time 22330.59999995554 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n226 started transfering at 22369.69999995497 seconds, arrived at n334 at time 22369.999999954965 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n334 started transfering at 22370.99999995495 seconds, arrived at n328 at time 22371.299999954947 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n360 started transfering at 22408.299999954408 seconds, arrived at n319 at time 22408.599999954404 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n213 started transfering at 22408.399999954407 seconds, arrived at n263 at time 22408.699999954402 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 22422.6999999542 seconds, arrived at n274 at time 22422.999999954194 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n353 started transfering at 22507.499999952965 seconds, arrived at n170 at time 22507.79999995296 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22508.699999952947 seconds, arrived at n301 at time 22508.999999952943 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22516.09999995284 seconds, arrived at n465 at time 22516.399999952835 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n465 started transfering at 22516.399999952835 seconds, arrived at n63 at time 22516.69999995283 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n221 started transfering at 22521.299999952764 seconds, arrived at n447 at time 22521.59999995276 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22526.199999952692 seconds, arrived at n544 at time 22526.499999952688 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22610.19999995147 seconds, arrived at n557 at time 22610.499999951466 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 22645.399999950958 seconds, arrived at n12 at time 22645.699999950953 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n12 at time 22645.699999950953 seconds
+M1 from n145 started transfering at 22649.899999950892 seconds, arrived at n489 at time 22650.199999950888 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n230 started transfering at 22656.89999995079 seconds, arrived at n232 at time 22657.199999950786 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n161 started transfering at 22661.499999950724 seconds, arrived at n303 at time 22661.79999995072 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n557 started transfering at 22680.099999950453 seconds, arrived at n243 at time 22680.39999995045 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n447 started transfering at 22716.299999949926 seconds, arrived at n289 at time 22716.59999994992 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22729.599999949733 seconds, arrived at n247 at time 22729.89999994973 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n247 started transfering at 22729.999999949727 seconds, arrived at n216 at time 22730.299999949722 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 22749.59999994944 seconds, arrived at n66 at time 22749.899999949437 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22754.899999949364 seconds, arrived at n416 at time 22755.19999994936 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22764.79999994922 seconds, arrived at n320 at time 22765.099999949216 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22775.19999994907 seconds, arrived at n123 at time 22775.499999949065 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22796.899999948753 seconds, arrived at n131 at time 22797.19999994875 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22824.69999994835 seconds, arrived at n415 at time 22824.999999948344 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 22828.999999948286 seconds, arrived at n474 at time 22829.29999994828 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22849.29999994799 seconds, arrived at n317 at time 22849.599999947986 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n152 started transfering at 22856.499999947886 seconds, arrived at n133 at time 22856.79999994788 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22897.299999947292 seconds, arrived at n399 at time 22897.599999947288 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n230 started transfering at 22899.199999947265 seconds, arrived at n332 at time 22899.49999994726 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n465 started transfering at 22912.49999994707 seconds, arrived at n181 at time 22912.799999947067 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22939.499999946678 seconds, arrived at n307 at time 22939.799999946674 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n208 started transfering at 22952.39999994649 seconds, arrived at n483 at time 22952.699999946486 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22952.799999946485 seconds, arrived at n163 at time 22953.09999994648 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n150 started transfering at 22955.79999994644 seconds, arrived at n349 at time 22956.099999946437 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n317 started transfering at 22958.199999946406 seconds, arrived at n159 at time 22958.4999999464 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n289 started transfering at 22961.499999946358 seconds, arrived at n184 at time 22961.799999946354 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n328 started transfering at 23026.499999945412 seconds, arrived at n410 at time 23026.799999945408 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n274 started transfering at 23039.399999945224 seconds, arrived at n433 at time 23039.69999994522 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n63 started transfering at 23071.799999944753 seconds, arrived at n451 at time 23072.09999994475 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n159 started transfering at 23082.099999944603 seconds, arrived at n605 at time 23082.3999999446 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 23093.29999994444 seconds, arrived at n336 at time 23093.599999944436 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n230 started transfering at 23101.49999994432 seconds, arrived at n526 at time 23101.799999944316 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n230 started transfering at 23178.099999943206 seconds, arrived at n134 at time 23178.3999999432 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n408 started transfering at 23189.099999943046 seconds, arrived at n633 at time 23189.39999994304 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 23189.49999994304 seconds, arrived at n219 at time 23189.799999943036 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 23198.999999942902 seconds, arrived at n367 at time 23199.299999942898 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n349 started transfering at 23232.399999942416 seconds, arrived at n315 at time 23232.69999994241 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: 2 até o destino
+TOTAL MESSAGES GENERATED: 2 até o destino
+Notas: Mandou menos cópias que Epidemic, como esperado, mas precisou estabelecer um limitante máximo de cópias gigantesco (4048)
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+********************************************************************
+* Cenário 4 - Cenário em que o FirstContact não conseguiu entregar *
+********************************************************************
+Cluster de nós utilizado: 3
+Origem: n156
+Destino: n360
+
+--- TVFP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated fastest path found by TVFP is: n156 n238 n153 n333 n360. 
+M1 from n156 started transfering at 19777.999999992684 seconds, arrived at n238 at time 19778.29999999268 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 20098.699999988017 seconds, arrived at n153 at time 20098.999999988013 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20314.29999998488 seconds, arrived at n333 at time 20314.599999984875 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 21120.699999973145 seconds, arrived at n360 at time 21120.99999997314 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n360 at time 21120.99999997314 seconds
+TOTAL HOPS: 4 até o destino
+TOTAL MESSAGES GENERATED: 1 até o destino
+Notas: Entregou ao destino à tempo.
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n156 started transfering at 19609.99999999513 seconds, arrived at n134 at time 19610.299999995124 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n134 started transfering at 20067.899999988465 seconds, arrived at n178 at time 20068.19999998846 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 20616.899999980476 seconds, arrived at n180 at time 20617.199999980472 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 20683.9999999795 seconds, arrived at n371 at time 20684.299999979496 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n371 started transfering at 22203.099999957394 seconds, arrived at n120 at time 22203.39999995739 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: Não conseguiu chegar.. irrelevante
+TOTAL MESSAGES GENERATED: 1 até o destino
+Notas: Não conseguiu entregar ao destino
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n156 started transfering at 19609.99999999513 seconds, arrived at n134 at time 19610.299999995124 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19768.899999992816 seconds, arrived at n186 at time 19769.199999992812 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19777.999999992684 seconds, arrived at n238 at time 19778.29999999268 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19780.099999992653 seconds, arrived at n301 at time 19780.39999999265 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19816.09999999213 seconds, arrived at n78 at time 19816.399999992125 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n186 started transfering at 20029.999999989017 seconds, arrived at n120 at time 20030.299999989013 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n134 started transfering at 20067.899999988465 seconds, arrived at n178 at time 20068.19999998846 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 20098.699999988017 seconds, arrived at n153 at time 20098.999999988013 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n301 started transfering at 20140.9999999874 seconds, arrived at n168 at time 20141.299999987397 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n186 started transfering at 20270.099999985523 seconds, arrived at n158 at time 20270.39999998552 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20284.199999985318 seconds, arrived at n227 at time 20284.499999985313 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20314.29999998488 seconds, arrived at n333 at time 20314.599999984875 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 20354.699999984292 seconds, arrived at n146 at time 20354.999999984288 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 20364.39999998415 seconds, arrived at n137 at time 20364.699999984146 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n168 started transfering at 20443.999999982992 seconds, arrived at n302 at time 20444.299999982988 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20460.799999982748 seconds, arrived at n230 at time 20461.099999982744 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 20616.899999980476 seconds, arrived at n180 at time 20617.199999980472 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20658.199999979875 seconds, arrived at n373 at time 20658.49999997987 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 20683.9999999795 seconds, arrived at n371 at time 20684.299999979496 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 20708.499999979143 seconds, arrived at n219 at time 20708.79999997914 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20709.699999979126 seconds, arrived at n208 at time 20709.99999997912 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n168 started transfering at 20750.69999997853 seconds, arrived at n366 at time 20750.999999978525 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n227 started transfering at 20761.099999978378 seconds, arrived at n185 at time 20761.399999978374 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n301 started transfering at 20853.79999997703 seconds, arrived at n246 at time 20854.099999977025 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n227 started transfering at 20910.19999997621 seconds, arrived at n213 at time 20910.499999976204 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n213 started transfering at 20923.79999997601 seconds, arrived at n372 at time 20924.099999976006 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 21061.699999974004 seconds, arrived at n210 at time 21061.999999974 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n366 started transfering at 21108.499999973323 seconds, arrived at n220 at time 21108.79999997332 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21110.0999999733 seconds, arrived at n223 at time 21110.399999973295 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 21120.699999973145 seconds, arrived at n360 at time 21120.99999997314 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n360 at time 21120.99999997314 seconds
+M1 from n223 started transfering at 21164.899999972502 seconds, arrived at n150 at time 21165.199999972498 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n219 started transfering at 21174.399999972364 seconds, arrived at n402 at time 21174.69999997236 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n301 started transfering at 21241.799999971383 seconds, arrived at n131 at time 21242.09999997138 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 21281.399999970807 seconds, arrived at n429 at time 21281.699999970802 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21320.099999970244 seconds, arrived at n359 at time 21320.39999997024 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21361.699999969638 seconds, arrived at n207 at time 21361.999999969634 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n168 started transfering at 21362.19999996963 seconds, arrived at n275 at time 21362.499999969627 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n137 started transfering at 21367.899999969548 seconds, arrived at n390 at time 21368.199999969544 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 21374.899999969446 seconds, arrived at n217 at time 21375.19999996944 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 21414.899999968864 seconds, arrived at n288 at time 21415.19999996886 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n220 started transfering at 21460.299999968203 seconds, arrived at n200 at time 21460.5999999682 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 21512.499999967444 seconds, arrived at n452 at time 21512.79999996744 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21543.69999996699 seconds, arrived at n329 at time 21543.999999966985 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n452 started transfering at 21553.699999966844 seconds, arrived at n58 at time 21553.99999996684 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21587.59999996635 seconds, arrived at n423 at time 21587.899999966347 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 21599.599999966176 seconds, arrived at n42 at time 21599.899999966172 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21651.699999965418 seconds, arrived at n196 at time 21651.999999965414 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21678.599999965027 seconds, arrived at n166 at time 21678.899999965022 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 21745.09999996406 seconds, arrived at n440 at time 21745.399999964055 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 21745.499999964053 seconds, arrived at n460 at time 21745.79999996405 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 21778.299999963576 seconds, arrived at n203 at time 21778.59999996357 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 21791.599999963382 seconds, arrived at n261 at time 21791.899999963378 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 21812.29999996308 seconds, arrived at n244 at time 21812.599999963077 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n217 started transfering at 21821.99999996294 seconds, arrived at n367 at time 21822.299999962936 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21831.799999962797 seconds, arrived at n161 at time 21832.099999962793 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n219 started transfering at 21865.8999999623 seconds, arrived at n181 at time 21866.199999962297 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 21879.09999996211 seconds, arrived at n205 at time 21879.399999962105 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n390 started transfering at 21887.39999996199 seconds, arrived at n408 at time 21887.699999961984 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n42 started transfering at 21928.999999961383 seconds, arrived at n343 at time 21929.29999996138 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 21971.09999996077 seconds, arrived at n405 at time 21971.399999960766 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 22004.299999960287 seconds, arrived at n319 at time 22004.599999960283 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n440 started transfering at 22031.999999959884 seconds, arrived at n320 at time 22032.29999995988 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n181 started transfering at 22048.19999995965 seconds, arrived at n498 at time 22048.499999959644 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n58 started transfering at 22064.199999959415 seconds, arrived at n193 at time 22064.49999995941 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 22096.399999958947 seconds, arrived at n473 at time 22096.699999958942 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n302 started transfering at 22111.99999995872 seconds, arrived at n299 at time 22112.299999958715 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22116.69999995865 seconds, arrived at n313 at time 22116.999999958647 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n301 started transfering at 22129.299999958468 seconds, arrived at n175 at time 22129.599999958464 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 22139.799999958315 seconds, arrived at n415 at time 22140.09999995831 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 22155.599999958085 seconds, arrived at n453 at time 22155.89999995808 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 22169.399999957885 seconds, arrived at n296 at time 22169.69999995788 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n208 started transfering at 22220.699999957138 seconds, arrived at n392 at time 22220.999999957134 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n42 started transfering at 22242.199999956825 seconds, arrived at n145 at time 22242.49999995682 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22247.099999956754 seconds, arrived at n263 at time 22247.39999995675 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 22247.39999995675 seconds, arrived at n388 at time 22247.699999956745 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n452 started transfering at 22317.299999955732 seconds, arrived at n433 at time 22317.599999955728 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22322.099999955662 seconds, arrived at n170 at time 22322.399999955658 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n343 started transfering at 22326.3999999556 seconds, arrived at n221 at time 22326.699999955596 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22329.999999955548 seconds, arrived at n432 at time 22330.299999955543 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22330.299999955543 seconds, arrived at n353 at time 22330.59999995554 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 22342.29999995537 seconds, arrived at n336 at time 22342.599999955364 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n301 started transfering at 22387.699999954708 seconds, arrived at n292 at time 22387.999999954704 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22392.699999954635 seconds, arrived at n226 at time 22392.99999995463 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22401.8999999545 seconds, arrived at n334 at time 22402.199999954497 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22402.199999954497 seconds, arrived at n328 at time 22402.499999954493 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n150 started transfering at 22420.099999954236 seconds, arrived at n468 at time 22420.399999954232 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n429 started transfering at 22422.6999999542 seconds, arrived at n274 at time 22422.999999954194 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n301 started transfering at 22508.699999952947 seconds, arrived at n182 at time 22508.999999952943 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22516.09999995284 seconds, arrived at n465 at time 22516.399999952835 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n465 started transfering at 22516.399999952835 seconds, arrived at n63 at time 22516.69999995283 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22517.39999995282 seconds, arrived at n399 at time 22517.699999952816 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n221 started transfering at 22521.299999952764 seconds, arrived at n447 at time 22521.59999995276 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n181 started transfering at 22526.199999952692 seconds, arrived at n317 at time 22526.499999952688 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22526.199999952692 seconds, arrived at n544 at time 22526.499999952688 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 22552.999999952302 seconds, arrived at n482 at time 22553.299999952298 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n292 started transfering at 22560.299999952196 seconds, arrived at n490 at time 22560.599999952192 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 22567.099999952097 seconds, arrived at n127 at time 22567.399999952093 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n205 started transfering at 22580.5999999519 seconds, arrived at n243 at time 22580.899999951896 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n131 started transfering at 22604.69999995155 seconds, arrived at n232 at time 22604.999999951546 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n490 started transfering at 22605.49999995154 seconds, arrived at n540 at time 22605.799999951534 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n170 started transfering at 22610.19999995147 seconds, arrived at n557 at time 22610.499999951466 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 22645.399999950958 seconds, arrived at n12 at time 22645.699999950953 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22649.899999950892 seconds, arrived at n489 at time 22650.199999950888 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22656.2999999508 seconds, arrived at n307 at time 22656.599999950795 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n161 started transfering at 22661.499999950724 seconds, arrived at n303 at time 22661.79999995072 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n220 started transfering at 22662.799999950705 seconds, arrived at n132 at time 22663.0999999507 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n447 started transfering at 22716.299999949926 seconds, arrived at n289 at time 22716.59999994992 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n275 started transfering at 22724.599999949805 seconds, arrived at n159 at time 22724.8999999498 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22729.599999949733 seconds, arrived at n247 at time 22729.89999994973 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n247 started transfering at 22729.999999949727 seconds, arrived at n216 at time 22730.299999949722 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 22749.59999994944 seconds, arrived at n66 at time 22749.899999949437 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n460 started transfering at 22751.599999949412 seconds, arrived at n519 at time 22751.899999949408 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n392 started transfering at 22754.899999949364 seconds, arrived at n416 at time 22755.19999994936 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n453 started transfering at 22772.199999949113 seconds, arrived at n67 at time 22772.49999994911 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n145 started transfering at 22775.19999994907 seconds, arrived at n123 at time 22775.499999949065 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n123 started transfering at 22775.499999949065 seconds, arrived at n184 at time 22775.79999994906 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22782.299999948966 seconds, arrived at n476 at time 22782.59999994896 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n66 started transfering at 22816.099999948474 seconds, arrived at n18 at time 22816.39999994847 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 22828.999999948286 seconds, arrived at n474 at time 22829.29999994828 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n18 started transfering at 22870.199999947687 seconds, arrived at n114 at time 22870.499999947682 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n220 started transfering at 22873.199999947643 seconds, arrived at n143 at time 22873.49999994764 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 22876.79999994759 seconds, arrived at n332 at time 22877.099999947586 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 22884.39999994748 seconds, arrived at n287 at time 22884.699999947476 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n307 started transfering at 22890.999999947384 seconds, arrived at n163 at time 22891.29999994738 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n452 started transfering at 22938.0999999467 seconds, arrived at n550 at time 22938.399999946694 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n208 started transfering at 22952.39999994649 seconds, arrived at n483 at time 22952.699999946486 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n150 started transfering at 22955.79999994644 seconds, arrived at n349 at time 22956.099999946437 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 22957.19999994642 seconds, arrived at n561 at time 22957.499999946416 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 22972.3999999462 seconds, arrived at n475 at time 22972.699999946195 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n18 started transfering at 23026.199999945416 seconds, arrived at n212 at time 23026.499999945412 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n328 started transfering at 23026.499999945412 seconds, arrived at n410 at time 23026.799999945408 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n275 started transfering at 23062.899999944882 seconds, arrived at n532 at time 23063.199999944878 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n63 started transfering at 23071.799999944753 seconds, arrived at n451 at time 23072.09999994475 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n359 started transfering at 23074.69999994471 seconds, arrived at n368 at time 23074.999999944706 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n159 started transfering at 23082.099999944603 seconds, arrived at n605 at time 23082.3999999446 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n230 started transfering at 23101.49999994432 seconds, arrived at n526 at time 23101.799999944316 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n402 started transfering at 23122.09999994402 seconds, arrived at n625 at time 23122.399999944017 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 23122.599999944014 seconds, arrived at n619 at time 23122.89999994401 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n213 started transfering at 23129.399999943915 seconds, arrived at n428 at time 23129.69999994391 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n288 started transfering at 23137.89999994379 seconds, arrived at n569 at time 23138.199999943787 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n114 started transfering at 23179.29999994319 seconds, arrived at n481 at time 23179.599999943184 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n408 started transfering at 23189.099999943046 seconds, arrived at n633 at time 23189.39999994304 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n127 started transfering at 23193.59999994298 seconds, arrived at n596 at time 23193.899999942976 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n18 started transfering at 23203.19999994284 seconds, arrived at n14 at time 23203.499999942836 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n220 started transfering at 23225.099999942522 seconds, arrived at n281 at time 23225.399999942518 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n131 started transfering at 23225.19999994252 seconds, arrived at n638 at time 23225.499999942516 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n127 started transfering at 23226.299999942505 seconds, arrived at n265 at time 23226.5999999425 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n349 started transfering at 23232.399999942416 seconds, arrived at n315 at time 23232.69999994241 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n519 started transfering at 23237.999999942334 seconds, arrived at n335 at time 23238.29999994233 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: 4 até o destino
+TOTAL MESSAGES GENERATED: 5 até o destino + 144 que foram pra tudo q é lado
+Notas: Entregou ao destino à tempo.
+
+
+--- Spray and Wait (Binário / Max 20 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n156 started transfering at 19609.99999999513 seconds, arrived at n134 at time 19610.299999995124 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19768.899999992816 seconds, arrived at n186 at time 19769.199999992812 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19777.999999992684 seconds, arrived at n238 at time 19778.29999999268 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 19780.099999992653 seconds, arrived at n301 at time 19780.39999999265 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n186 started transfering at 20029.999999989017 seconds, arrived at n120 at time 20030.299999989013 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n134 started transfering at 20067.899999988465 seconds, arrived at n178 at time 20068.19999998846 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 20098.699999988017 seconds, arrived at n153 at time 20098.999999988013 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n120 started transfering at 20153.699999987217 seconds, arrived at n78 at time 20153.999999987213 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n186 started transfering at 20270.099999985523 seconds, arrived at n158 at time 20270.39999998552 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n153 started transfering at 20314.29999998488 seconds, arrived at n333 at time 20314.599999984875 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 20354.699999984292 seconds, arrived at n146 at time 20354.999999984288 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n178 started transfering at 20616.899999980476 seconds, arrived at n180 at time 20617.199999980472 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n180 started transfering at 20683.9999999795 seconds, arrived at n371 at time 20684.299999979496 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n333 started transfering at 21120.699999973145 seconds, arrived at n360 at time 21120.99999997314 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n360 at time 21120.99999997314 seconds
+M1 from n178 started transfering at 21262.999999971074 seconds, arrived at n185 at time 21263.29999997107 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n134 started transfering at 22274.999999956348 seconds, arrived at n453 at time 22275.299999956344 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n371 started transfering at 22388.2999999547 seconds, arrived at n405 at time 22388.599999954695 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n453 started transfering at 22433.299999954044 seconds, arrived at n473 at time 22433.59999995404 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n134 started transfering at 22766.399999949197 seconds, arrived at n12 at time 22766.699999949193 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: 4 até o destino
+TOTAL MESSAGES GENERATED: 5 até o destino + 14 que se espalharam
+Notas: Entregou ao destino à tempo.
+
+*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+*************
+* Cenário 5 *
+*************
+Cluster de nós utilizado: 3
+Origem: n128
+Destino: n607
+--- TVFP ---
+Processed 5121KB out of 7373KB (69%)
+The estimated fastest path found by TVFP is: n128 n176 n455 n211 n607.
+M1 from n128 started transfering at 18641.800000009218 seconds, arrived at n176 at time 18642.100000009214 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 21995.299999960418 seconds, arrived at n455 at time 21995.599999960414 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n455 started transfering at 22188.099999957612 seconds, arrived at n211 at time 22188.399999957608 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n211 started transfering at 22954.099999946466 seconds, arrived at n607 at time 22954.39999994646 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n607 at time 22954.39999994646 seconds
+TOTAL HOPS: 4 até o destino
+TOTAL MESSAGES GENERATED: 1
+Notas: Entregou ao destino à tempo.
+
+
+--- First Contact ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n128 started transfering at 18641.800000009218 seconds, arrived at n176 at time 18642.100000009214 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 20222.09999998622 seconds, arrived at n329 at time 20222.399999986217 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 21182.19999997225 seconds, arrived at n423 at time 21182.499999972246 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21215.99999997176 seconds, arrived at n322 at time 21216.299999971754 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n322 started transfering at 21721.899999964397 seconds, arrived at n182 at time 21722.199999964392 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22008.29999996023 seconds, arrived at n468 at time 22008.599999960225 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n468 started transfering at 22420.099999954236 seconds, arrived at n150 at time 22420.399999954232 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n150 started transfering at 22866.59999994774 seconds, arrived at n301 at time 22866.899999947735 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: Não conseguiu entregar
+TOTAL MESSAGES GENERATED: 1
+Notas: Não conseguiu entregar...
+
+
+--- Epidemic ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n128 started transfering at 18641.800000009218 seconds, arrived at n176 at time 18642.100000009214 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 20222.09999998622 seconds, arrived at n329 at time 20222.399999986217 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n128 started transfering at 20412.59999998345 seconds, arrived at n192 at time 20412.899999983445 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n192 started transfering at 20455.89999998282 seconds, arrived at n280 at time 20456.199999982815 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 21182.19999997225 seconds, arrived at n423 at time 21182.499999972246 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21215.99999997176 seconds, arrived at n322 at time 21216.299999971754 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 21331.99999997007 seconds, arrived at n196 at time 21332.299999970066 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 21543.69999996699 seconds, arrived at n207 at time 21543.999999966985 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21587.59999996635 seconds, arrived at n223 at time 21587.899999966347 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21678.599999965027 seconds, arrived at n166 at time 21678.899999965022 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n322 started transfering at 21721.899999964397 seconds, arrived at n182 at time 21722.199999964392 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 21825.39999996289 seconds, arrived at n238 at time 21825.699999962886 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 21831.799999962797 seconds, arrived at n161 at time 21832.099999962793 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 21995.299999960418 seconds, arrived at n455 at time 21995.599999960414 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22008.29999996023 seconds, arrived at n468 at time 22008.599999960225 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n455 started transfering at 22188.099999957612 seconds, arrived at n211 at time 22188.399999957608 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n207 started transfering at 22226.09999995706 seconds, arrived at n343 at time 22226.399999957055 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n343 started transfering at 22326.3999999556 seconds, arrived at n221 at time 22326.699999955596 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22329.999999955548 seconds, arrived at n432 at time 22330.299999955543 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 22385.39999995474 seconds, arrived at n504 at time 22385.699999954737 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22392.699999954635 seconds, arrived at n226 at time 22392.99999995463 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22401.8999999545 seconds, arrived at n334 at time 22402.199999954497 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 22402.199999954497 seconds, arrived at n328 at time 22402.499999954493 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n468 started transfering at 22420.099999954236 seconds, arrived at n150 at time 22420.399999954232 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 22473.199999953464 seconds, arrived at n268 at time 22473.49999995346 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 22508.699999952947 seconds, arrived at n301 at time 22508.999999952943 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n221 started transfering at 22521.299999952764 seconds, arrived at n447 at time 22521.59999995276 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n166 started transfering at 22631.59999995116 seconds, arrived at n353 at time 22631.899999951154 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n161 started transfering at 22661.499999950724 seconds, arrived at n303 at time 22661.79999995072 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n447 started transfering at 22716.299999949926 seconds, arrived at n289 at time 22716.59999994992 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n289 started transfering at 22760.79999994928 seconds, arrived at n489 at time 22761.099999949274 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n223 started transfering at 22828.999999948286 seconds, arrived at n474 at time 22829.29999994828 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n166 started transfering at 22836.099999948183 seconds, arrived at n232 at time 22836.39999994818 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22836.499999948177 seconds, arrived at n63 at time 22836.799999948173 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n238 started transfering at 22862.799999947794 seconds, arrived at n429 at time 22863.09999994779 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n161 started transfering at 22865.299999947758 seconds, arrived at n123 at time 22865.599999947754 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n123 started transfering at 22865.699999947752 seconds, arrived at n184 at time 22865.999999947748 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n123 started transfering at 22865.999999947748 seconds, arrived at n247 at time 22866.299999947743 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n353 started transfering at 22893.199999947352 seconds, arrived at n243 at time 22893.499999947348 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22897.299999947292 seconds, arrived at n399 at time 22897.599999947288 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n161 started transfering at 22903.6999999472 seconds, arrived at n145 at time 22903.999999947195 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22906.199999947163 seconds, arrived at n360 at time 22906.49999994716 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n353 started transfering at 22908.299999947132 seconds, arrived at n415 at time 22908.599999947128 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n353 started transfering at 22912.099999947077 seconds, arrived at n263 at time 22912.399999947073 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n263 started transfering at 22926.39999994687 seconds, arrived at n332 at time 22926.699999946864 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n415 started transfering at 22926.89999994686 seconds, arrived at n544 at time 22927.199999946857 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n360 started transfering at 22939.199999946683 seconds, arrived at n307 at time 22939.499999946678 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 22952.799999946485 seconds, arrived at n163 at time 22953.09999994648 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n211 started transfering at 22954.099999946466 seconds, arrived at n607 at time 22954.39999994646 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n607 at time 22954.39999994646 seconds
+M1 from n150 started transfering at 22955.79999994644 seconds, arrived at n349 at time 22956.099999946437 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n544 started transfering at 22974.899999946163 seconds, arrived at n156 at time 22975.19999994616 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n247 started transfering at 22976.39999994614 seconds, arrived at n216 at time 22976.699999946137 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n504 started transfering at 22985.39999994601 seconds, arrived at n424 at time 22985.699999946006 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n328 started transfering at 23026.499999945412 seconds, arrived at n410 at time 23026.799999945408 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n399 started transfering at 23043.599999945163 seconds, arrived at n78 at time 23043.89999994516 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n307 started transfering at 23067.79999994481 seconds, arrived at n320 at time 23068.099999944807 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n63 started transfering at 23071.799999944753 seconds, arrived at n451 at time 23072.09999994475 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n263 started transfering at 23073.799999944724 seconds, arrived at n261 at time 23074.09999994472 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n166 started transfering at 23088.799999944506 seconds, arrived at n181 at time 23089.0999999445 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+M1 from n232 started transfering at 23093.29999994444 seconds, arrived at n336 at time 23093.599999944436 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n261 started transfering at 23122.599999944014 seconds, arrived at n619 at time 23122.89999994401 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n163 started transfering at 23123.099999944006 seconds, arrived at n159 at time 23123.399999944002 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 23154.39999994355 seconds, arrived at n408 at time 23154.699999943547 seconds (Hop count: 9 / Transmission time: 0.2999999999956344 seconds)
+M1 from n156 started transfering at 23161.99999994344 seconds, arrived at n131 at time 23162.299999943436 seconds (Hop count: 9 / Transmission time: 0.2999999999956344 seconds)
+M1 from n78 started transfering at 23173.69999994327 seconds, arrived at n146 at time 23173.999999943266 seconds (Hop count: 8 / Transmission time: 0.2999999999956344 seconds)
+M1 from n353 started transfering at 23174.49999994326 seconds, arrived at n296 at time 23174.799999943254 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n408 started transfering at 23189.099999943046 seconds, arrived at n633 at time 23189.39999994304 seconds (Hop count: 10 / Transmission time: 0.2999999999956344 seconds)
+M1 from n182 started transfering at 23189.49999994304 seconds, arrived at n219 at time 23189.799999943036 seconds (Hop count: 6 / Transmission time: 0.2999999999956344 seconds)
+M1 from n399 started transfering at 23198.899999942903 seconds, arrived at n605 at time 23199.1999999429 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n263 started transfering at 23219.899999942598 seconds, arrived at n526 at time 23220.199999942593 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n131 started transfering at 23225.19999994252 seconds, arrived at n638 at time 23225.499999942516 seconds (Hop count: 10 / Transmission time: 0.2999999999956344 seconds)
+M1 from n399 started transfering at 23225.799999942512 seconds, arrived at n274 at time 23226.099999942508 seconds (Hop count: 7 / Transmission time: 0.2999999999956344 seconds)
+M1 from n349 started transfering at 23232.399999942416 seconds, arrived at n315 at time 23232.69999994241 seconds (Hop count: 9 / Transmission time: 0.2999999999956344 seconds)
+M1 from n166 started transfering at 23242.099999942275 seconds, arrived at n388 at time 23242.39999994227 seconds (Hop count: 5 / Transmission time: 0.2999999999956344 seconds)
+TOTAL HOPS: 4 até o destino
+TOTAL MESSAGES GENERATED: 5 até o destino + 71 que se espalharam
+Notas: Entregou ao destino à tempo.
+
+
+--- Spray and Wait (Binário / Max 11 cópias) (Mínimo número de cópias necessário pra chegar no menor tempo possível) ---
+Processed 5121KB out of 7373KB (69%)
+M1 from n128 started transfering at 18641.800000009218 seconds, arrived at n176 at time 18642.100000009214 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 20222.09999998622 seconds, arrived at n329 at time 20222.399999986217 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n128 started transfering at 20412.59999998345 seconds, arrived at n192 at time 20412.899999983445 seconds (Hop count: 1 / Transmission time: 0.2999999999956344 seconds)
+M1 from n192 started transfering at 20455.89999998282 seconds, arrived at n280 at time 20456.199999982815 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n329 started transfering at 21182.19999997225 seconds, arrived at n423 at time 21182.499999972246 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n423 started transfering at 21215.99999997176 seconds, arrived at n322 at time 21216.299999971754 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 from n176 started transfering at 21995.299999960418 seconds, arrived at n455 at time 21995.599999960414 seconds (Hop count: 2 / Transmission time: 0.2999999999956344 seconds)
+M1 from n455 started transfering at 22188.099999957612 seconds, arrived at n211 at time 22188.399999957608 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+M1 from n211 started transfering at 22954.099999946466 seconds, arrived at n607 at time 22954.39999994646 seconds (Hop count: 4 / Transmission time: 0.2999999999956344 seconds)
+M1 arrived at DESTINATION n607 at time 22954.39999994646 seconds
+M1 from n280 started transfering at 23231.899999942423 seconds, arrived at n424 at time 23232.19999994242 seconds (Hop count: 3 / Transmission time: 0.2999999999956344 seconds)
+
+TOTAL HOPS: 4 até o destino
+TOTAL MESSAGES GENERATED: 5 até o destino + 6 que se espalharam (Daria pra fazer 1 replicação adicional, pois existem 10 cópias da msg)
+Notas: Entregou ao destino à tempo.
